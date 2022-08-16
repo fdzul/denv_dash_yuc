@@ -1,5 +1,5 @@
 ---
-title: "Programa de Prevención y Control del Dengue"
+title: "Programa de Prevención y Control del Dengue de Yucatán"
 output: 
   flexdashboard::flex_dashboard:
       theme: flatly
@@ -117,8 +117,8 @@ library(dplyr)
 static_bump_map(dataset = x,
                 year = "2022",
                 state = TRUE,
-                size_text_value = 2.5,
-                size_text = 1.5,
+                size_text_value = 2,
+                size_text = 1,
                 country_text_x = 0.5,
                 country_text_y = 0.8,
                 line_size = 1.5,
