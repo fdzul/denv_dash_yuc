@@ -31,6 +31,7 @@ library(dplyr)
 ```
 
 
+
 **Vigilancia Epidemiológica**
 =====================================  
 
@@ -125,6 +126,11 @@ static_bump_map(dataset = x,
                 pal_vir = "viridis")
 ```
 
+</div>
+</body>
+</html>
+
+
 
 ### **<span style="color:#7d9029"> Casos Confirmados por JS & Municipio </span>**
 <html>
@@ -164,7 +170,9 @@ heatmap_confirmados(dataset = x,
                     MPO = TRUE,
                     EDO = FALSE)
 ```
-
+</div>
+</body>
+</html>
 
 
 ### **<span style="color:#7d9029">Canal Endémico </span>**
@@ -235,8 +243,16 @@ plotly::ggplotly(boldenr::epi_channel(x = y,
                                       x_exito = 42, y_exito = 1))
 
 ```
-
-
 </div>
 </body>
 </html>
+
+
+**Vigilancia Entomológica**
+=====================================  
+
+Column {.tabset}
+------------------------------------
+
+### **<span style="color:#7d9029"> Ovitrampas </span>**
+
