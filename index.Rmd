@@ -130,7 +130,6 @@ static_bump_map(dataset = x,
 
 
 #### **<span style="color:blue"> Casos confirmados por semana & Jurisdicción Sanitaria </span>**
-
 ```{r heatmap_2022_jurisdicción,out.width="100%", out.height="100%"}
 # Step 1. load the dataset ####
 
@@ -152,8 +151,8 @@ heatmap_confirmados(dataset = x,
                     EDO = FALSE)
 ```
 
-#### **<span style="color:blue"> Casos confirmados por semana & Municipio </span>**
 
+#### **<span style="color:blue"> Casos confirmados por semana & Municipio </span>**
 ```{r heatmap_2022_municipio,out.width="100%", out.height="100%" }
 # Step 1. load the dataset ####
 
@@ -165,6 +164,7 @@ x <- boldenr::read_dataset_bol(path = "C:/Users/HOME/OneDrive/datasets/DGE/arbo/
 source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/heatmap_confirmados.R')
 
 # Run the function 
+
 library(ggplot2)
 heatmap_confirmados(dataset = x, 
                     year = 2022, 
