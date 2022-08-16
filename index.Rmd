@@ -165,3 +165,44 @@ heatmap_confirmados(dataset = x,
                     EDO = FALSE)
 ```
 
+
+
+### **<span style="color:#7d9029">Canal Endémico </span>**
+<html>
+<head>
+<style>
+.myDiv1 {
+  border: 2px outset darkgreen;
+  background-color: darkgreen;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="myDiv1">
+  <h2></h2>
+  <p></p>
+#### **<span style="color:white">Canal Endémico Estatal </span>**
+```{r}
+load("C:/Users/HOME/OneDrive/automatic_read_sinave/8.RData/epid_channel_data_js.RData")
+plotly::ggplotly(boldenr::epi_channel(x = boldenr::dendata_epichannel,
+                                      edo = "YUCATAN", 
+                                      jur = NULL,
+                                      y = x,
+                                      year1 = 2021,
+                                      year2 = 2022,
+                                      x_epi = 34, y_epi = 200,
+                                      x_alerta = 40, y_alerta = 120, 
+                                      x_seg = 40, y_seg = 40,
+                                      x_exito = 37, y_exito = 5))
+
+
+
+```
+
+
+
+</div>
+</body>
+</html>
