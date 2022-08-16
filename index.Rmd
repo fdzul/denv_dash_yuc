@@ -110,7 +110,7 @@ heatmap_confirmados(dataset = x,
                     EDO = TRUE)
 ```
 
-#### **<span style="color:blue"> Casos Confirmados 2022 </span>**
+#### **<span style="color:blue"> Casos Confirmados </span>**
 ```{r bumpmap_national_2022, out.width="100%", out.height="100%"}
 source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/static_bump_map.R')
 library(dplyr)
@@ -125,5 +125,55 @@ static_bump_map(dataset = x,
                 pal_vir = "viridis")
 ```
 
+
+### **<span style="color:#7d9029"> Casos por Jurisdicción & Municipio </span>**
+
+
+#### **<span style="color:blue"> Casos confirmados por semana & Jurisdicción Sanitaria </span>**
+
+```{r heatmap_2022_jurisdicción,out.width="100%", out.height="100%"}
+# Step 1. load the dataset ####
+
+x <- boldenr::read_dataset_bol(path = "C:/Users/HOME/OneDrive/datasets/DGE/arbo/",
+                               dataset = "sinave")
+
+
+# Step 2. load the function 
+source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/heatmap_confirmados.R')
+
+# Step 3. run the function 
+library(ggplot2)
+heatmap_confirmados(dataset = x, 
+                    year = 2022, 
+                    size_text = 3,
+                    state = "YUCATAN",
+                    JS = TRUE,
+                    MPO = TRUE,
+                    EDO = FALSE)
+```
+
+#### **<span style="color:blue"> Casos confirmados por semana & Municipio </span>**
+
+```{r heatmap_2022_municipio,out.width="100%", out.height="100%" }
+# Step 1. load the dataset ####
+
+x <- boldenr::read_dataset_bol(path = "C:/Users/HOME/OneDrive/datasets/DGE/arbo/",
+                               dataset = "sinave")
+
+
+# Step 2. load the function 
+source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/heatmap_confirmados.R')
+
+# Run the function 
+library(ggplot2)
+heatmap_confirmados(dataset = x, 
+                    year = 2022, 
+                    size_text = 3,
+                    state = "YUCATAN",
+                    JS = FALSE,
+                    MPO = TRUE,
+                    EDO = FALSE)
+
+```
 
 
