@@ -126,47 +126,25 @@ static_bump_map(dataset = x,
 ```
 
 
-### **<span style="color:#7d9029"> Casos por Jurisdicción & Municipio </span>**
+### **<span style="color:#7d9029"> Casos Confirmados por JS & Municipio </span>**
+<html>
+<head>
+<style>
+.myDiv1 {
+  border: 2px outset darkgreen;
+  background-color: darkgreen;
+  text-align: center;
+}
+</style>
+</head>
+<body>
 
-#### **<span style="color:blue"> Casos confirmados por semana & Municipio </span>**
-```{r heatmap_2022_municipio,out.width="100%", out.height="100%" }
-# Step 1. load the dataset ####
+<div class="myDiv1">
+  <h2></h2>
+  <p></p>
 
-x <- boldenr::read_dataset_bol(path = "C:/Users/HOME/OneDrive/datasets/DGE/arbo/",
-                               dataset = "sinave")
-
-
-# Step 2. load the function 
-source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/heatmap_confirmados.R')
-
-# Run the function 
-
-library(ggplot2)
-heatmap_confirmados(dataset = x, 
-                    year = 2022, 
-                    size_text = 3,
-                    state = "YUCATAN",
-                    JS = FALSE,
-                    MPO = TRUE,
-                    EDO = FALSE)
-
-```
-
-
-
-#### **<span style="color:blue"> Casos confirmados por semana & Jurisdicción Sanitaria </span>**
-```{r heatmap_2022_jurisdicción,out.width="100%", out.height="100%"}
-# Step 1. load the dataset ####
-
-x <- boldenr::read_dataset_bol(path = "C:/Users/HOME/OneDrive/datasets/DGE/arbo/",
-                               dataset = "sinave")
-
-
-# Step 2. load the function 
-source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/heatmap_confirmados.R')
-
-# Step 3. run the function 
-library(ggplot2)
+#### **<span style="color:white">Casos por Semana & Jurisdición </span>**
+```{r}
 heatmap_confirmados(dataset = x, 
                     year = 2022, 
                     size_text = 3,
@@ -176,4 +154,14 @@ heatmap_confirmados(dataset = x,
                     EDO = FALSE)
 ```
 
+#### **<span style="color:white">Casos por Semana & Municipio</span>**
+```{r}
+heatmap_confirmados(dataset = x, 
+                    year = 2022, 
+                    size_text = 3,
+                    state = "YUCATAN",
+                    JS = FALSE,
+                    MPO = TRUE,
+                    EDO = FALSE)
+```
 
