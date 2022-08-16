@@ -313,7 +313,10 @@ ggplot2::ggplot() +
     ggplot2::geom_sf(data = urb_loc_hr_ovi, fill = "red") +
     ggplot2::theme_void() +
     ggspatial::annotation_north_arrow(location = "tr") +
-    ggspatial::annotation_scale()
+    ggspatial::annotation_scale() +
+    ggplot2::coord_sf(xlim = c(-90.5, -87.05), 
+                    ylim = c(19.5, 22), 
+                     expand = FALSE)
 
 ```
 </div>
