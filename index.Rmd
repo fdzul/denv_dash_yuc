@@ -255,7 +255,21 @@ Column {.tabset}
 ------------------------------------
 
 ### **<span style="color:#7d9029"> Ovitrampas </span>**
+<html>
+<head>
+<style>
+.myDiv1 {
+  border: 2px outset darkgreen;
+  background-color: darkgreen;
+  text-align: center;
+}
+</style>
+</head>
+<body>
 
+<div class="myDiv1">
+  <h2></h2>
+  <p></p>
 #### **<span style="color:#7d9029">Canal Endémico </span>**
 ```{r echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center",cache = TRUE, fig.show = "hold", fig.cap= "Figura 1. Mapa de las localidad de alto (en gris) y localidades con ovitrampas (en rojo)"}
 # 1.load the AGEM of veracruz #####
@@ -302,5 +316,8 @@ ggplot2::ggplot() +
     ggspatial::annotation_scale()
 
 ```
+</div>
+</body>
+</html>
 
 
