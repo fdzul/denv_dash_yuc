@@ -1,0 +1,4 @@
+runtime: shiny
+logo: images/cover.jpg
+name: "denv_dash_yuc"
+output_dir: docs
