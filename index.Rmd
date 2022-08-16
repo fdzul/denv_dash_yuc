@@ -1,29 +1,129 @@
 ---
-title: "Untitled"
-output: html_document
-date: '2022-08-16'
+title: "Programa de Prevención y Control del Dengue"
+output: 
+  flexdashboard::flex_dashboard:
+      theme: flatly
+output_dir: docs
+cover-image: images/cover.jpg
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+
+```{r setup}
+x <- boldenr::read_dataset_bol(path = "C:/Users/HOME/OneDrive/datasets/DGE/arbo/",
+                                dataset = "sinave")
+source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/heatmap_confirmados.R')
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r libraris}
+library(formattable)
+library(tmap)
+library(rmarkdown)
+library(knitr)
+library(shiny)
+library(flexdashboard)
+library(plotly)
+library(boldenr)
+library(magrittr)
+library(leaflet)
+library(ggplot2)
+library(dplyr)
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
+**Vigilancia Epidemiológica**
+=====================================  
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+Column {.tabset}
+------------------------------------
+
+
+### **<span style="color:#7d9029"> Casos por Estado </span>**
+<html>
+<head>
+<style>
+</style>
+</head>
+<body>
+<div >
+  <h2></h2>
+  <p></p>
+
+
+<div style = "display: grid; width: 1px; grid-template-columns: 700px 700px; align-items: start; justify-content: space-between;">
+#### **<span style="color:blue"> Treemap de casos confirmados </span>**
+```{r treemap_national, out.width="100%", out.height="100%"}
+x  |>
+    dplyr::filter(ANO == 2022)  |>
+    dplyr::filter(!DES_EDO_RES %in% c("OTROS PAISES", 
+                                      "OTROS PAISES DE LATINOAMERICA",
+                                      "ESTADOS UNIDOS DE NORTEAMERICA"))  |>
+    dplyr::filter(DES_DIAG_FINAL %in% 
+                      c("DENGUE CON SIGNOS DE ALARMA", "DENGUE NO GRAVE", 
+                        "DENGUE GRAVE"))  |>
+    dplyr::group_by(DES_EDO_RES,DES_DIAG_FINAL)  |>
+    dplyr::summarise(value = dplyr::n(), 
+                     .groups = "drop")  |>
+    dplyr::mutate(DES_EDO_RES = stringr::str_to_title(DES_EDO_RES),
+                  DES_DIAG_FINAL = stringr::str_to_title(DES_DIAG_FINAL))  |>
+    dplyr::mutate(DES_DIAG_FINAL = factor(DES_DIAG_FINAL,
+                                          levels = c("Dengue Con Signos De Alarma",
+                                                     "Dengue Grave",
+                                                     "Dengue No Grave"),
+                                          labels = c("DSA", "DG", "DNG")))  |>
+    ggplot2::ggplot(ggplot2::aes(area = value, 
+                                 fill = DES_EDO_RES,
+                                 subgroup = DES_EDO_RES,
+                                 label = DES_DIAG_FINAL)) +
+    treemapify::geom_treemap() +
+    treemapify::geom_treemap_text(fontface = "italic", 
+                                  colour = "black", 
+                                  place = "bottom",
+                                  #alpha = 0.5,
+                                  grow = F) +
+    treemapify::geom_treemap_subgroup_text(place = "middle", 
+                                           colour = "White", 
+                                           #alpha = 0.8, 
+                                           grow = T)+
+    ggplot2::theme(legend.position = "none") +
+    ggplot2::scale_fill_viridis_d()
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+<div>
+#### **<span style="color:blue"> Casos confirmados y serotipos </span>**
+```{r casos_serotipos,out.width="100%", out.height="100%"}
+boldenr::plot_state_serotype(dataset = x, 
+                                  year = 2022, 
+                                  x_serotype  = 0.5, 
+                                  y_serotype = 0.17, 
+                                  scale_serotype = 1.7)
+```
+</div>
+</div>
+
+
+#### **<span style="color:blue"> Casos confirmados por semana </span>**
+```{r casos_semana}
+heatmap_confirmados(dataset = x, 
+                    year = 2022, 
+                    size_text = 3, 
+                    EDO = TRUE)
+```
+
+#### **<span style="color:blue"> Casos Confirmados 2022 </span>**
+```{r bumpmap_national_2022, out.width="100%", out.height="100%"}
+source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/static_bump_map.R')
+library(dplyr)
+static_bump_map(dataset = x,
+                year = "2022",
+                state = TRUE,
+                size_text_value = 3,
+                size_text = 3,
+                country_text_x = 0.5,
+                country_text_y = 0.8,
+                line_size = 1.5,
+                pal_vir = "viridis")
+```
+
+
+
