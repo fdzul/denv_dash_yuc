@@ -201,6 +201,40 @@ plotly::ggplotly(boldenr::epi_channel(x = boldenr::dendata_epichannel,
 
 ```
 
+#### **<span style="color:white">Canal Endémico Jurisdicción Merida </span>**
+```{r}
+load("C:/Users/HOME/OneDrive/automatic_read_sinave/8.RData/epid_channel_data_js.RData")
+plotly::ggplotly(boldenr::epi_channel(x = y,
+                                      edo = "YUCATAN", 
+                                      jur = "MERIDA",
+                                      mpo = NULL,
+                                      y = x,
+                                      year1 = 2021,
+                                      year2 = 2022,
+                                      x_epi = 20, y_epi = 90,
+                                      x_alerta = 36, y_alerta = 50, 
+                                      x_seg = 35, y_seg = 15,
+                                      x_exito = 42, y_exito = 1))
+
+```
+
+#### **<span style="color:white">Canal Endémico Jurisdicción Valladolid </span>**
+```{r}
+load("C:/Users/HOME/OneDrive/automatic_read_sinave/8.RData/epid_channel_data_js.RData")
+
+plotly::ggplotly(boldenr::epi_channel(x = y,
+                                      edo = "YUCATAN", 
+                                      jur = "VALLADOLID",
+                                      mpo = NULL,
+                                      y = x,
+                                      year1 = 2021,
+                                      year2 = 2022,
+                                      x_epi = 35, y_epi = 25,
+                                      x_alerta = 36, y_alerta = 16, 
+                                      x_seg = 40, y_seg = 10,
+                                      x_exito = 42, y_exito = 1))
+
+```
 
 
 </div>
