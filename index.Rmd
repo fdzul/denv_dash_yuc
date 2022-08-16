@@ -254,7 +254,7 @@ plotly::ggplotly(boldenr::epi_channel(x = y,
 Column {.tabset}
 ------------------------------------
 
-### **<span style="color:#7d9029"> Ovitrampas </span>**
+### **<span style="color:#660033"> Ovitrampas </span>**
 <html>
 <head>
 <style>
