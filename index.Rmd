@@ -271,7 +271,7 @@ Column {.tabset}
   <h2></h2>
   <p></p>
 #### **<span style="color:#7d9029">Areas urbanas con Vigilancia Entomológica </span>**
-```{r echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center",cache = TRUE, fig.show = "hold", fig.cap= "Figura 1. Mapa de las localidad de alto riesgo (en gris) y localidades con ovitrampas (en rojo)"}
+```{r echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center",cache = TRUE, fig.show = "hold"}
 # 1.load the AGEM of veracruz #####
 library(magrittr)
 library(sf)
