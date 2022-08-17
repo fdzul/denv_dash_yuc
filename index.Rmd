@@ -270,7 +270,7 @@ Column {.tabset}
 <div class="myDiv1">
   <h2></h2>
   <p></p>
-#### **<span style="color:#7d9029">Areas urbanas con Vigilancia Entomológica </span>**
+#### **<span style="color:#7d9029">Áreas urbanas con Vigilancia Entomológica </span>**
 ```{r echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center",cache = TRUE, fig.show = "hold"}
 # 1.load the AGEM of veracruz #####
 library(magrittr)
@@ -319,6 +319,62 @@ ggplot2::ggplot() +
                      expand = FALSE)
 
 ```
+
+
+#### **<span style="color:#7d9029">Indicador de Ovitrampas en Mérida</span>**
+```{r indicador_ovitrampas, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", fig.show = "hold"}
+
+library(magrittr)
+
+# Step 1. Load the ovitrap dataset ####
+path_vect <- "C:/Users/HOME/Dropbox/cenaprece_datasets/2022/31_yucatan"
+ovis <- boldenr::read_dataset_bol(path = path_vect,
+                                 dataset = "vectores",
+                                 inf = "Lecturas")
+## Step 2. indicar ovitrampas
+#
+library(ggplot2)
+boldenr::ovitraps_indicator(x = ovis,
+                            nom_loc = "Mérida",
+                            all = FALSE)
+
+```
+
+
+#### **<span style="color:#7d9029"> Manzanas Calientes del área urbana de Mérida en la semana `r lubridate::epiweek(Sys.Date())-1`</span>**
+```{r manzanas_calientes, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", fig.show = "hold"}
+library(magrittr)
+
+path_vect <- "C:/Users/HOME/Dropbox/cenaprece_datasets/2022/31_yucatan"
+
+
+# Step 1. Load the ovitrap dataset ####
+ovis <- boldenr::read_dataset_bol(path = path_vect,
+                                  dataset = "vectores",
+                                  inf = "Lecturas")
+# Step 2. load the blocks #####
+load("C:/Users/HOME/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RData")
+
+
+# Step 2.1 extract the block of yucatan state ###
+#x <- rgeomex::blocks_ine20_mx_c
+x <- blocks_ine10_mx |> dplyr::filter(ENTIDAD == 31)
+
+y <- rgeomex::extract_ageb(locality = "Mérida", cve_geo = "31")
+
+# Step 3. hotblocks #####
+boldenr::hot_blocks(loc = "Mérida",
+                    x = ovis,
+                    blocks = x,
+                    cve_mpo = unique(x[y$locality, ]$MUNICIPIO),
+                    sem1 = lubridate::epiweek(Sys.time())-1,
+                    risk = TRUE)
+
+
+
+```
+
+
 </div>
 </body>
 </html>
