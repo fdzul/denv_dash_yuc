@@ -404,5 +404,3 @@ deneggs::eggs_hotspots(path_lect = path_vect,
 </div>
 </body>
 </html>
-
-
