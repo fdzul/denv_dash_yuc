@@ -367,7 +367,7 @@ x <- blocks_ine10_mx |> dplyr::filter(ENTIDAD == 31)
 boldenr::hot_blocks(loc = "Mérida",
                     x = ovis,
                     blocks = x,
-                    cve_mpo = "050",
+                    cve_mpo = "50",
                     sem1 = lubridate::epiweek(Sys.time())-1,
                     risk = TRUE)
 
