@@ -24,6 +24,9 @@ ovis <- boldenr::read_dataset_bol(path = path_vect,
                                  dataset = "vectores",
                                  inf = "Lecturas")
 
+# load the blocks #####
+load("C:/Users/HOME/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RData")
+
 ```
 
 ```{r libraris}
@@ -349,7 +352,7 @@ boldenr::ovitraps_indicator(x = ovis,
 ```{r manzanas_calientes_merida, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
 
 # Step 1. load the blocks #####
-load("C:/Users/HOME/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RData")
+#load("C:/Users/HOME/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RData")
 
 
 # Step 1.1 extract the block of yucatan state ###
@@ -414,7 +417,7 @@ boldenr::ovitraps_indicator(x = ovis,
 
 
 # Step 2. load the blocks #####
-load("C:/Users/HOME/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RData")
+#load("C:/Users/HOME/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RData")
 
 
 # Step 2.1 extract the block of yucatan state ###
@@ -472,12 +475,12 @@ boldenr::ovitraps_indicator(x = ovis,
 
 ```
 
-#### **<span style="color:#7d9029"> Manzanas Calientes de Valladolid en la semana `r lubridate::epiweek(Sys.Date())-1`</span>**
+#### **<span style="color:#7d9029"> Manzanas Calientes de Tizimín en la semana `r lubridate::epiweek(Sys.Date())-1`</span>**
 ```{r manzanas_calientes_tizimin, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
 
 
 # Step 2. load the blocks #####
-load("C:/Users/HOME/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RData")
+#load("C:/Users/HOME/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RData")
 
 
 # Step 2.1 extract the block of yucatan state ###
@@ -497,7 +500,7 @@ boldenr::hot_blocks(loc = "Tizimín",
 ```
 
 
-#### **<span style="color:#7d9029"> Predicción del Número de Huevos en el área urbana de Valladolid en la semana `r lubridate::epiweek(Sys.Date())-1`</span>**
+#### **<span style="color:#7d9029"> Predicción del Número de Huevos en el área urbana de Tizimín en la semana `r lubridate::epiweek(Sys.Date())-1`</span>**
 ```{r eggs_prediction_tizimin, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
 path_vect <- "C:/Users/HOME/Dropbox/cenaprece_datasets/2022/31_yucatan"
 path_coord <- paste(path_vect, "DescargaOvitrampasMesFco.txt", sep = "/")
@@ -524,6 +527,67 @@ deneggs::eggs_hotspots(path_lect = path_vect,
 ```
 
 
+#### **<span style="color:#7d9029">Indicador de Ovitrampas en Ticul</span>**
+```{r indicador_ovitrampas_ticul, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
+
+#  indicar ovitrampas
+library(ggplot2)
+boldenr::ovitraps_indicator(x = ovis,
+                            nom_loc = "Ticul",
+                            all = FALSE)
+
+```
+
+#### **<span style="color:#7d9029"> Manzanas Calientes de Ticul en la semana `r lubridate::epiweek(Sys.Date())-1`</span>**
+```{r manzanas_calientes_ticul, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
+
+
+
+# Step 2. load the blocks #####
+#load("C:/Users/HOME/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RData")
+
+# Step 2.1 extract the block of yucatan state ###
+#x <- rgeomex::blocks_ine20_mx_c
+x <- blocks_ine10_mx |> dplyr::filter(ENTIDAD == 31)
+
+# Step 2. hotblocks #####
+boldenr::hot_blocks(loc = "Ticul",
+                    x = ovis,
+                    blocks = x,
+                    cve_mpo = "89",
+                    sem1 = lubridate::epiweek(Sys.time())-1,
+                    risk = TRUE)
+
+
+
+```
+
+
+#### **<span style="color:#7d9029"> Predicción del Número de Huevos en el área urbana de Tizimín en la semana `r lubridate::epiweek(Sys.Date())-1`</span>**
+```{r eggs_prediction_piste, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
+path_vect <- "C:/Users/HOME/Dropbox/cenaprece_datasets/2022/31_yucatan"
+path_coord <- paste(path_vect, "DescargaOvitrampasMesFco.txt", sep = "/")
+
+deneggs::eggs_hotspots(path_lect = path_vect,
+                       cve_ent = 31,
+                       locality  = c("Piste"),
+                       path_coord = path_coord,
+                       longitude  = "Pocision_X",
+                       latitude =  "Pocision_Y",
+                       aproximation = "gaussian",
+                       integration = "eb",
+                       fam = "nbinomial",
+                       k = 80,
+                       palette_vir  = "magma",
+                       leg_title = "Huevos",
+                       plot = FALSE,
+                       hist_dataset = FALSE, ##### NOTA
+                       sem = lubridate::epiweek(Sys.Date())-1,
+                       var = "eggs",
+                       cell_size = 2000,
+                       alpha = .99)$map
+
+```
 
 
 
