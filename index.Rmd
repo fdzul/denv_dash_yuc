@@ -271,7 +271,7 @@ Column {.tabset}
   <h2></h2>
   <p></p>
 #### **<span style="color:#7d9029">Áreas urbanas con Vigilancia Entomológica </span>**
-```{r echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center",cache = TRUE, fig.show = "hold"}
+```{r echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center",out.width="90%", cache = TRUE, fig.show = "hold"}
 # 1.load the AGEM of veracruz #####
 library(magrittr)
 library(sf)
@@ -322,7 +322,7 @@ ggplot2::ggplot() +
 
 
 #### **<span style="color:#7d9029">Indicador de Ovitrampas en Mérida</span>**
-```{r indicador_ovitrampas, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", fig.show = "hold"}
+```{r indicador_ovitrampas, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
 
 library(magrittr)
 
@@ -342,7 +342,7 @@ boldenr::ovitraps_indicator(x = ovis,
 
 
 #### **<span style="color:#7d9029"> Manzanas Calientes del área urbana de Mérida en la semana `r lubridate::epiweek(Sys.Date())-1`</span>**
-```{r manzanas_calientes, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", fig.show = "hold"}
+```{r manzanas_calientes, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
 library(magrittr)
 
 path_vect <- "C:/Users/HOME/Dropbox/cenaprece_datasets/2022/31_yucatan"
@@ -375,8 +375,8 @@ boldenr::hot_blocks(loc = "Mérida",
 ```
 
 
-## Predición del Número de Huevos área urbana de **Mérida**  semana `r lubridate::epiweek(Sys.Date())-1`
-```{r, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="70%",cache = TRUE, fig.show = "hold"}
+#### Predición del Número de Huevos del área urbana de **Mérida**  semana `r lubridate::epiweek(Sys.Date())-1`
+```{r, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
 path_vect <- "C:/Users/HOME/Dropbox/cenaprece_datasets/2022/31_yucatan"
 path_coord <- paste(path_vect, "DescargaOvitrampasMesFco.txt", sep = "/")
 
