@@ -27,6 +27,13 @@ ovis <- boldenr::read_dataset_bol(path = path_vect,
 # load the blocks #####
 load("C:/Users/HOME/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RData")
 
+# load the control larvario dataset
+path_vect <- "C:/Users/HOME/Dropbox/cenaprece_datasets/2022/31_yucatan"
+cl <- boldenr::read_dataset_bol(path = path_vect, 
+                                dataset = "vectores",
+                                inf = "Control")
+
+
 ```
 
 ```{r libraris}
@@ -807,8 +814,6 @@ deneggs::eggs_hotspots(path_lect = path_vect,
 
 ```
 
-
-
 </div>
 </body>
 </html>
@@ -836,9 +841,12 @@ Column {.tabset}
 <div class="myDiv1">
   <h2></h2>
   <p></p>
-  
-  
-  
-</div>
+
+#### Avances de **Control Larvario** Por **Jurisdicción Sanitaria** en el Estado de **Yucatán**
+```{r echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
+boldenr::cl_table(x = cl, jur = NULL, mun = FALSE)
+``` 
+
+ </div>
 </body>
 </html>
