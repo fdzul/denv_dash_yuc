@@ -831,7 +831,7 @@ Column {.tabset}
 <style>
 .myDiv1 {
   border: 2px outset darkgreen;
-  background-color: darkgreen;
+  background-color: white;
   text-align: center;
 }
 </style>
@@ -842,11 +842,28 @@ Column {.tabset}
   <h2></h2>
   <p></p>
 
-#### Avances de **Control Larvario** Por **Jurisdicción Sanitaria** en el Estado de **Yucatán**
-```{r echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
+#### Avances de **Control Larvario** Por **Jurisdicción Sanitaria**
+```{r cl_juri, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
 boldenr::cl_table(x = cl, jur = NULL, mun = FALSE)
 ``` 
 
- </div>
+####  **<span style="color:#7d9029">Avances de Control Larvario por Municipio de la Jurisdición 01 Mérida</span>**
+```{r cl_merida, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
+boldenr::cl_table(x = cl, jur = "Mérida", mun = TRUE)
+``` 
+
+####  **<span style="color:#7d9029">Avances de Control Larvario por Municipio de la Jurisdición 02 Valladolid</span>**
+```{r cl_valladolid, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
+boldenr::cl_table(x = cl, jur = "Valladolid", mun = TRUE)
+``` 
+
+####  **<span style="color:#7d9029">Avances de Control Larvario por Municipio de la Jurisdición 03 Ticul</span>**
+```{r cl_ticul, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
+boldenr::cl_table(x = cl, jur = "Ticul", mun = TRUE)
+``` 
+
+
+
+</div>
 </body>
 </html>
