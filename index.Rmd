@@ -13,6 +13,8 @@ cover-image: images/cover.jpg
 x <- boldenr::read_dataset_bol(path = "C:/Users/HOME/OneDrive/datasets/DGE/arbo/",
                                 dataset = "sinave")
 source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/heatmap_confirmados.R')
+
+
 ```
 
 ```{r libraris}
@@ -322,7 +324,7 @@ ggplot2::ggplot() +
 
 
 #### **<span style="color:#7d9029">Indicador de Ovitrampas en Mérida</span>**
-```{r indicador_ovitrampas, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
+```{r indicador_ovitrampas_merida, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
 
 library(magrittr)
 
@@ -342,7 +344,7 @@ boldenr::ovitraps_indicator(x = ovis,
 
 
 #### **<span style="color:#7d9029"> Manzanas Calientes del área urbana de Mérida en la semana `r lubridate::epiweek(Sys.Date())-1`</span>**
-```{r manzanas_calientes, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
+```{r manzanas_calientes_merida, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
 library(magrittr)
 
 path_vect <- "C:/Users/HOME/Dropbox/cenaprece_datasets/2022/31_yucatan"
@@ -360,13 +362,12 @@ load("C:/Users/HOME/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RDat
 #x <- rgeomex::blocks_ine20_mx_c
 x <- blocks_ine10_mx |> dplyr::filter(ENTIDAD == 31)
 
-y <- rgeomex::extract_ageb(locality = "Mérida", cve_geo = "31")
 
 # Step 3. hotblocks #####
 boldenr::hot_blocks(loc = "Mérida",
                     x = ovis,
                     blocks = x,
-                    cve_mpo = unique(x[y$locality, ]$MUNICIPIO),
+                    cve_mpo = "050",
                     sem1 = lubridate::epiweek(Sys.time())-1,
                     risk = TRUE)
 
@@ -375,8 +376,8 @@ boldenr::hot_blocks(loc = "Mérida",
 ```
 
 
-#### Predición del Número de Huevos del área urbana de **Mérida**  semana `r lubridate::epiweek(Sys.Date())-1`
-```{r, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
+#### **<span style="color:#7d9029"> Predicción del Número de Huevos en el área urbana de Mérida en la semana `r lubridate::epiweek(Sys.Date())-1`</span>**
+```{r eggs_prediction_merida, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
 path_vect <- "C:/Users/HOME/Dropbox/cenaprece_datasets/2022/31_yucatan"
 path_coord <- paste(path_vect, "DescargaOvitrampasMesFco.txt", sep = "/")
 
@@ -400,6 +401,60 @@ deneggs::eggs_hotspots(path_lect = path_vect,
                        alpha = .99)$map
 
 ```
+
+
+#### **<span style="color:#7d9029">Indicador de Ovitrampas en Valladolid</span>**
+```{r indicador_ovitrampas_valladolid, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
+
+library(magrittr)
+
+# Step 1. Load the ovitrap dataset ####
+path_vect <- "C:/Users/HOME/Dropbox/cenaprece_datasets/2022/31_yucatan"
+ovis <- boldenr::read_dataset_bol(path = path_vect,
+                                 dataset = "vectores",
+                                 inf = "Lecturas")
+## Step 2. indicar ovitrampas
+#
+library(ggplot2)
+boldenr::ovitraps_indicator(x = ovis,
+                            nom_loc = "Valladolid",
+                            all = FALSE)
+
+```
+
+
+#### **<span style="color:#7d9029"> Manzanas Calientes de Valladolid en la semana `r lubridate::epiweek(Sys.Date())-1`</span>**
+```{r manzanas_calientes_valladolid, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
+library(magrittr)
+
+path_vect <- "C:/Users/HOME/Dropbox/cenaprece_datasets/2022/31_yucatan"
+
+
+# Step 1. Load the ovitrap dataset ####
+ovis <- boldenr::read_dataset_bol(path = path_vect,
+                                  dataset = "vectores",
+                                  inf = "Lecturas")
+# Step 2. load the blocks #####
+load("C:/Users/HOME/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RData")
+
+
+# Step 2.1 extract the block of yucatan state ###
+#x <- rgeomex::blocks_ine20_mx_c
+x <- blocks_ine10_mx |> dplyr::filter(ENTIDAD == 31)
+
+# Step 2. hotblocks #####
+boldenr::hot_blocks(loc = "Valladolid",
+                    x = ovis,
+                    blocks = x,
+                    cve_mpo = "102",
+                    sem1 = lubridate::epiweek(Sys.time())-1,
+                    risk = TRUE)
+
+
+
+```
+
+
 
 </div>
 </body>
