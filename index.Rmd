@@ -455,6 +455,33 @@ boldenr::hot_blocks(loc = "Valladolid",
 ```
 
 
+#### **<span style="color:#7d9029"> Predicción del Número de Huevos en el área urbana de Valladolid en la semana `r lubridate::epiweek(Sys.Date())-1`</span>**
+```{r eggs_prediction_valladolid, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
+path_vect <- "C:/Users/HOME/Dropbox/cenaprece_datasets/2022/31_yucatan"
+path_coord <- paste(path_vect, "DescargaOvitrampasMesFco.txt", sep = "/")
+
+deneggs::eggs_hotspots(path_lect = path_vect,
+                       cve_ent = 31,
+                       locality  = c("Valladolid"),
+                       path_coord = path_coord,
+                       longitude  = "Pocision_X",
+                       latitude =  "Pocision_Y",
+                       aproximation = "gaussian",
+                       integration = "eb",
+                       fam = "nbinomial",
+                       k = 80,
+                       palette_vir  = "magma",
+                       leg_title = "Huevos",
+                       plot = FALSE,
+                       hist_dataset = FALSE, ##### NOTA
+                       sem = lubridate::epiweek(Sys.Date())-1,
+                       var = "eggs",
+                       cell_size = 2000,
+                       alpha = .99)$map
+
+```
+
+
 
 </div>
 </body>
