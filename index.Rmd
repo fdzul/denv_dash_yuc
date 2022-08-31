@@ -873,7 +873,7 @@ boldenr::cl_table(x = cl, jur = "Ticul", mun = TRUE)
 </body>
 </html>
 
-### **<span style="color:#660033"> Nebulizacion en Frio (ULV) por Jurisdicción Sanitaria </span>**
+### **<span style="color:#660033"> Nebulización en Frío (ULV)</span>**
 <html>
 <head>
 <style>
@@ -890,22 +890,22 @@ boldenr::cl_table(x = cl, jur = "Ticul", mun = TRUE)
   <h2></h2>
   <p></p>
   
-####  **<span style="color:#7d9029">Avances de Nebulizacion en frio (UBV) por Jurisdición Sanitaria</span>**
+####  **<span style="color:#7d9029">Avances de Nebulizacion en Frío (UBV) por Jurisdición Sanitaria</span>**
 ```{r ulv_yucatan, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
 boldenr::tb_ulv(x = neb, jur = NULL, mun = FALSE, coldfog = TRUE)
 ```  
  
-####  **<span style="color:#7d9029">Avances de Control Larvario por Municipio de la Jurisdición 01 Mérida</span>**
+####  **<span style="color:#7d9029">Avances de Nebulizacion en Frío (UBV)por Municipio de la Jurisdición 01 Mérida</span>**
 ```{r ulv_merida, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
 boldenr::tb_ulv(x = neb, jur = "Mérida", mun = TRUE, coldfog = TRUE)
 ``` 
 
-####  **<span style="color:#7d9029">Avances de Control Larvario por Municipio de la Jurisdición 02 Valladolid</span>**
+####  **<span style="color:#7d9029">Avances de Nebulizacion en Frío (UBV) por Municipio de la Jurisdición 02 Valladolid</span>**
 ```{r ulv_valladolid, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
 boldenr::tb_ulv(x = neb, jur = "Valladolid", mun = TRUE, coldfog = TRUE)
 ``` 
 
-####  **<span style="color:#7d9029">Avances de Control Larvario por Municipio de la Jurisdición 03 Ticul</span>**
+####  **<span style="color:#7d9029">Avances de Nebulizacion en Frío (UBV) por Municipio de la Jurisdición 03 Ticul</span>**
 ```{r ulv_ticul, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
 boldenr::tb_ulv(x = neb, jur = "Ticul", mun = TRUE, coldfog = TRUE)
 ``` 
@@ -913,3 +913,50 @@ boldenr::tb_ulv(x = neb, jur = "Ticul", mun = TRUE, coldfog = TRUE)
 </div>
 </body>
 </html> 
+
+
+### **<span style="color:#660033">Termonebulización</span>**
+<html>
+<head>
+<style>
+.myDiv1 {
+  border: 2px outset darkgreen;
+  background-color: white;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="myDiv1">
+  <h2></h2>
+  <p></p>
+  
+####  **<span style="color:#7d9029">Termonubulización por Jurisdición Sanitaria</span>**
+```{r termo_yucatan, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
+boldenr::tb_ulv(x = neb, jur = NULL, mun = FALSE, coldfog = FALSE)
+```  
+ <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
+ 
+####  **<span style="color:#7d9029">Termonebulización Municipio de la Jurisdición 01 Mérida</span>**
+```{r termo_merida, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
+boldenr::tb_ulv(x = neb, jur = "Mérida", mun = TRUE, coldfog = FALSE)
+``` 
+<hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
+
+####  **<span style="color:#7d9029">Termonebulización por Municipio de la Jurisdición 02 Valladolid</span>**
+```{r termo_valladolid, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
+boldenr::tb_ulv(x = neb, jur = "Valladolid", mun = TRUE, coldfog = FALSE)
+``` 
+<hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
+####  **<span style="color:#7d9029">Termonebulización por Municipio de la Jurisdición 03 Ticul</span>**
+```{r termo_ticul, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
+boldenr::tb_ulv(x = neb, jur = "Ticul", mun = TRUE, coldfog = FALSE)
+``` 
+
+</div>
+</body>
+
+</html> 
+
+
