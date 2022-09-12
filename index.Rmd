@@ -12,14 +12,14 @@ cover-image: images/cover.jpg
 ```{r setup}
 
 # Load the dengue dataset 
-x <- boldenr::read_dataset_bol(path = "C:/Users/felip/OneDrive/datasets/DGE/arbo/",
+x <- boldenr::read_dataset_bol(path = "C:/Users/HOME/OneDrive/datasets/DGE/arbo/",
                                 dataset = "sinave")
-source('C:/Users/felip/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/heatmap_confirmados.R')
+source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/heatmap_confirmados.R')
 
 library(magrittr)
 
 # define the dataset 
-path_vect <- "C:/Users/felip/Dropbox/cenaprece_datasets/2022/31_yucatan"
+path_vect <- "C:/Users/HOME/Dropbox/cenaprece_datasets/2022/31_yucatan"
 
 # Load the ovitrap dataset 
 
@@ -28,7 +28,7 @@ ovis <- boldenr::read_dataset_bol(path = path_vect,
                                  inf = "Lecturas")
 
 # load the blocks #####
-load("C:/Users/felip/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RData")
+load("C:/Users/HOME/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RData")
 
 # load the control larvario dataset
 cl <- boldenr::read_dataset_bol(path = path_vect, 
@@ -141,7 +141,7 @@ heatmap_confirmados(dataset = x,
 
 #### **<span style="color:blue"> Casos Confirmados </span>**
 ```{r bumpmap_national_2022, out.width="100%", out.height="100%"}
-source('C:/Users/felip/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/static_bump_map.R')
+source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/static_bump_map.R')
 library(dplyr)
 static_bump_map(dataset = x,
                 year = "2022",
@@ -221,7 +221,7 @@ heatmap_confirmados(dataset = x,
   <p></p>
 #### **<span style="color:white">Canal Endémico Estatal </span>**
 ```{r}
-load("C:/Users/felip/OneDrive/automatic_read_sinave/8.RData/epid_channel_data_js.RData")
+load("C:/Users/HOME/OneDrive/automatic_read_sinave/8.RData/epid_channel_data_js.RData")
 plotly::ggplotly(boldenr::epi_channel(x = boldenr::dendata_epichannel,
                                       edo = "YUCATAN", 
                                       jur = NULL,
@@ -239,7 +239,7 @@ plotly::ggplotly(boldenr::epi_channel(x = boldenr::dendata_epichannel,
 
 #### **<span style="color:white">Canal Endémico Jurisdicción Mérida </span>**
 ```{r}
-load("C:/Users/felip/OneDrive/automatic_read_sinave/8.RData/epid_channel_data_js.RData")
+load("C:/Users/HOME/OneDrive/automatic_read_sinave/8.RData/epid_channel_data_js.RData")
 plotly::ggplotly(boldenr::epi_channel(x = y,
                                       edo = "YUCATAN", 
                                       jur = "MERIDA",
@@ -256,7 +256,7 @@ plotly::ggplotly(boldenr::epi_channel(x = y,
 
 #### **<span style="color:white">Canal Endémico Jurisdicción Valladolid </span>**
 ```{r}
-load("C:/Users/felip/OneDrive/automatic_read_sinave/8.RData/epid_channel_data_js.RData")
+load("C:/Users/HOME/OneDrive/automatic_read_sinave/8.RData/epid_channel_data_js.RData")
 
 plotly::ggplotly(boldenr::epi_channel(x = y,
                                       edo = "YUCATAN", 
