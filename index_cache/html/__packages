@@ -11,3 +11,6 @@ boldenr
 leaflet
 dplyr
 sf
+stringr
+dash
+ECharts2Shiny
