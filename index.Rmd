@@ -952,14 +952,16 @@ boldenr::tb_ulv(x = neb, jur = "Ticul", mun = TRUE, coldfog = FALSE)
 
 </div>
 </body>
-
 </html> 
 
 
-# **Dengue Transmission Hotspots**
+# **Hotspots de la Transmisión de Dengue**
+
+Column {.tabset}
+------------------------------------
 
 
-### **<span style="color:#990000">Tuxpan</span>**
+### **<span style="color:#990000">Mérida</span>**
 <html>
 <head>
 <style>
@@ -1014,7 +1016,7 @@ body {
 <body>
 <div class="wrapper">
   <div class="box a">
-```{r hotspots_dengue_tuxpan}
+```{r hotspots_dengue_merida}
 hotspots_map(cve_ent = "31",
              locality = "Mérida",
              hotspots = cases_hotspots_agebs19,
@@ -1134,7 +1136,192 @@ flexdashboard::gauge(round((sum(y_hot$n_cases)/sum(y$n_cases))*100, digits = 1),
                    colors = c("success", "warning","danger"))
       )
 ```
-  </div>
+ </div>
 </div>
 </body>
 </html>
+
+
+### **<span style="color:#990000">Valladolid</span>**
+
+<html>
+<head>
+<style>
+body {
+  margin: 0px;
+}
+
+.wrapper {
+    display: grid;
+    grid-gap: 2px;
+    grid-template-columns: 280px 280px 280px 550px;
+    grid-template-rows: 165px 165px 165px 165px;
+    background-color: #fff;
+    color: "green";
+  }
+
+  .box {
+    background-color: #cfcfc4;
+    color: "green";
+    border-radius: 2px;
+    padding: 5px;
+    font-size: 100%;
+
+  }
+
+  .a {
+    grid-column: 1 / 4;
+    grid-row: 1 / 4;
+  }
+  .b {
+    grid-column: 4 ;
+    grid-row: 1 / 3;
+  }
+  .c {
+    grid-column: 4 ;
+    grid-row: 3 / 5 ;
+  }
+  .d {
+    grid-column: 3;
+    grid-row: 4;
+  }
+  .e {
+    grid-column: 2;
+    grid-row: 4;
+  }
+  .f {
+    grid-column: 1;
+    grid-row: 4;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="box a">
+```{r hotspots_dengue_valladolid}
+hotspots_map(cve_ent = "31",
+             locality = "Valladolid",
+             hotspots = cases_hotspots_agebs19,
+             static_map = FALSE)
+
+```
+  </div>
+  <div class="box b">
+```{r forest_plot_valladolid, dpi = 300, fig.height= 5,fig.width = 7,fig.align = "center", out.height='100%', out.width = '100%',fig.show = "hold"}
+ 
+# extract the locality
+loc <- extract_locality(cve_edo = "31",
+                        locality = "Valladolid")
+
+hotspots <- cases_hotspots_agebs19[loc,]
+# Logistic Regression
+glm.fit <- glm(hotspots_gi ~ DENV_2008 + DENV_2009 +  DENV_2010 + DENV_2011 + 
+                   DENV_2012 + DENV_2013  +  DENV_2014 + 
+                   DENV_2015  +  DENV_2016  +  DENV_2019 +
+                   DENV_2020,
+               data = hotspots, 
+               family = binomial)
+
+result <- parameters::model_parameters(glm.fit, 
+                                      exponentiate = TRUE)
+
+plotly::ggplotly(plot(result, size_text = 1))
+```
+  </div>
+  <div class="box c">
+```{r power_law_plot_valladolid,dpi = 300, warning=FALSE, fig.align = "center", out.width = '100%',out.height='100%',fig.show = "hold"}
+# Step 7. make the function por calculate the cumulative ####
+funcumsum <- function(x){
+    x$cumulative_n <- cumsum(x$n_cases)
+    x$perc_cumsum_n <- round((cumsum(x$n_cases)/sum(x$n_cases))*100, digits = 1)
+    #x$cumulative_ha <- cumsum(x$ha)
+    #x$perc_cumsum_ha <- round((cumsum(x$ha)/sum(x$ha))*100, digits = 1)
+    x$id <- 1
+    x$id_cumsum <- cumsum(x$id)
+    x$id_perc_cum <- round((cumsum(x$id)/nrow(x))*100, digits = 1)
+    x
+}
+# step 8.
+
+data_pareto <- hotspots   %>% 
+    sf::st_drop_geometry()  %>% 
+    dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
+                  loc = "locality")  %>% 
+    dplyr::select(loc, n_cases, hotspots_gi)  %>% 
+    dplyr::arrange(loc, desc(hotspots_gi), desc(n_cases))  %>% 
+    dplyr::group_by(loc)  %>% 
+    tidyr::nest()  %>% 
+    dplyr::mutate(pareto_cases = purrr::map(data,
+                                            funcumsum))  %>% 
+    dplyr::select(-data)  %>% 
+    tidyr::unnest(cols = c(pareto_cases))
+
+# step 4. visualization of pareto rules 
+plotly::ggplotly(denhotspots::power_law_plot(x = data_pareto))  %>%  plotly::layout(showlegend = FALSE)
+
+```
+  </div>
+  <div class="box d">
+```{r gauge_blocks_valladolid,fig.align = "center", out.height='100%', out.width = '100%', fig.width= 1.5, fig.height=1}
+y_hot <- hotspots %>% dplyr::filter(hotspots_gi == 1)
+centroid <- rgeomex::blocks_ine20_mx_centroid %>%
+  sf::st_as_sf(coords = c("x", "y"), crs = 4326)
+b_loc <- centroid[hotspots, ]
+b_hot <- b_loc[y_hot, ]
+flexdashboard::gauge(round((nrow(b_hot)/nrow(b_loc))*100, digits = 1),
+      min = 0, max = 100, 
+      symbol = '%', 
+      label = "Manzanas",
+      flexdashboard::gaugeSectors(success = c(0, 30), 
+                                  warning = c(31, 50), 
+                                  danger = c(51, 100),
+                                  colors = c("success", "warning","danger")))
+```
+  </div>
+  <div class="box e">
+```{r gauge_AGEB_valladolid, fig.align = "center", out.height='100%', out.width = '100%'}
+
+y <- hotspots  %>%
+    sf::st_drop_geometry() %>%
+    dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
+                  loc = "locality") %>%
+    dplyr::select(loc, n_cases, hotspots_gi) 
+y_hot <- y %>% dplyr::filter(hotspots_gi == 1)
+  
+flexdashboard::gauge(round((nrow(y_hot)/nrow(y))*100, digits = 1),
+      min = 0, max = 100, 
+      symbol = '%', 
+      label = "AGEBs",
+      flexdashboard::gaugeSectors(success = c(0, 30), 
+                                  warning = c(31, 50), 
+                                  danger = c(51, 100),
+                                  colors = c("success", "warning","danger")))
+```
+  </div>
+<div class="box f">
+```{r gauge_casos_valladolid, out.height='90%', out.width = '90%', fig.align = "center"}
+
+y <- hotspots  %>%
+    sf::st_drop_geometry() %>%
+    dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
+                  loc = "locality") %>%
+    dplyr::select(loc, n_cases, hotspots_gi) 
+y_hot <- y %>% dplyr::filter(hotspots_gi == 1)
+
+flexdashboard::gauge(round((sum(y_hot$n_cases)/sum(y$n_cases))*100, digits = 1),
+      min = 0, max = 100, 
+      symbol = '%', 
+      label = "Casos de Dengue",
+      flexdashboard::gaugeSectors(success = c(11, 100), 
+                   warning = c(6, 10), 
+                   danger = c(0, 5),
+                   colors = c("success", "warning","danger"))
+      )
+```
+</div>
+</div>
+</body>
+</html>
+
+
+
