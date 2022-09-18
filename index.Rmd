@@ -1217,7 +1217,7 @@ hotspots <- cases_hotspots_agebs19[loc,]
 # Logistic Regression
 glm.fit <- glm(hotspots_gi ~ DENV_2008 + DENV_2009 +  DENV_2010 + DENV_2011 + 
                    DENV_2012 + DENV_2013  +  DENV_2014 + 
-                   DENV_2015  +  DENV_2016  +  DENV_2019 +
+                   DENV_2015  +  DENV_2017 + DENV_2018+ DENV_2019 +
                    DENV_2020,
                data = hotspots, 
                family = binomial)
@@ -1398,7 +1398,7 @@ hotspots <- cases_hotspots_agebs19[loc,]
 # Logistic Regression
 glm.fit <- glm(hotspots_gi ~ DENV_2008 + DENV_2009 +  DENV_2010 + DENV_2011 + 
                    DENV_2012 + DENV_2013  +  
-                   DENV_2015  +  DENV_2016  +   DENV_2017 + DENV_2018 + DENV_2019,
+                   DENV_2015  +  DENV_2016  + DENV_2018 + DENV_2019,
                data = hotspots, 
                family = binomial)
 
