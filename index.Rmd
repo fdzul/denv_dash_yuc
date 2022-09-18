@@ -20,7 +20,7 @@ library(magrittr)
 
 # define the dataset 
 path_vect <- "C:/Users/HOME/Dropbox/cenaprece_datasets/2022/31_yucatan"
-
+path_coord <- paste(path_vect, "DescargaOvitrampasMesFco.txt", sep = "/")
 # Load the ovitrap dataset 
 
 ovis <- boldenr::read_dataset_bol(path = path_vect,
