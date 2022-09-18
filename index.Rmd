@@ -275,6 +275,135 @@ plotly::ggplotly(boldenr::epi_channel(x = y,
 </body>
 </html>
 
+### **<span style="color:#7d9029">Distribución de Casos </span>**
+
+```{r}
+# step 1. dengue cases geocoded ####
+load("C:/Users/HOME/OneDrive/proyects/geocoding_mex/2022/9.RData_geocoded/den2022_positivos.RData")
+y <- z[stringr::str_which(z$formatted_address,  " Mexico"),]
+
+
+# step 2. load the yucatan boundary ####
+x <- rgeomex::AGEE_inegi19_mx |>
+    dplyr::filter(CVE_ENT %in% c("31"))
+
+
+# Step 3. extract the dengue cases by state ####
+
+
+# Step 3.1 convert the dataset in sf object 
+
+y <- y |>
+    dplyr::mutate(x = long,
+                  y = lat) |>
+    sf::st_as_sf(coords = c("long", "lat"),
+                 crs = 4326)
+
+# Step 3.2 extract the dengue cases
+y <- y[x, ]
+
+
+# step 2. create the palette ####
+pal <- leaflet::colorBin(palette = fishualize::fish(n = length(unique(y$SEM)), 
+                                                    option = "Hypsypops_rubicundus",
+                                                    end = 1,
+                                                    alpha = .5),
+                         domain = y$SEM,
+                         bins = 10)
+
+y1 <- y  |>
+    dplyr::filter(DENGUE_SER_TRIPLEX == 1)
+
+y2 <- y  |>
+    dplyr::filter(DENGUE_SER_TRIPLEX == 2)
+y3 <- y  |>
+    dplyr::filter(DENGUE_SER_TRIPLEX == 3)
+y4 <- y  |>
+    dplyr::filter(DENGUE_SER_TRIPLEX == 4)
+########################
+
+# step 3. generate maps ####
+l <- leaflet::leaflet(y)  |> 
+    leaflet::addTiles()  |> 
+    leaflet::addCircleMarkers(color = ~pal(SEM),
+                              group = "DENV",
+                              stroke = FALSE, 
+                              opacity = 0.5,
+                              fillOpacity = 0.5)  |>
+    leaflet::addCircleMarkers(data = y1,
+                              group = "Serotipo 1",
+                              color = ~pal(SEM),
+                              stroke = FALSE, 
+                              opacity = 0.5,
+                              fillOpacity = 0.5)  |>
+    leaflet::addCircleMarkers(data = y2,
+                              group = "Serotipo 2",
+                              color = ~pal(SEM),
+                              stroke = FALSE, 
+                              opacity = 0.5,
+                              fillOpacity = 0.5)  |>
+    leaflet::addCircleMarkers(data = y3,
+                              group = "Serotipo 3",
+                              color = ~pal(SEM),
+                              stroke = FALSE, 
+                              opacity = 0.5,
+                              fillOpacity = 0.5)  |>
+    leaflet::addCircleMarkers(data = y4,
+                              group = "Serotipo 4",
+                              color = ~pal(SEM),
+                              stroke = FALSE, 
+                              opacity = 0.5,
+                              fillOpacity = 0.5)  |>
+    #leaflet::addPolylines(data = rgeomex::loc_inegi19_mx,
+    #                     color = "darkblue",
+    #                    label = ~NOMGEO,
+    #                   group = "Localidad",
+    #                  fillOpacity = .7,
+    #                 opacity = .9,
+    #                weight = .5)  |>
+    #leaflet.extras::addSearchFeatures(targetGroups = "Localidad",
+    #   options = leaflet.extras::searchFeaturesOptions(zoom #= 14, 
+    #openPopup = FALSE))  |>
+    
+leaflet::addLegend("bottomright", 
+                   group = "legend",
+                   pal = pal, 
+                   values = ~SEM,
+                   title = "Semana Epidemiológica",
+                   opacity = 0.9,
+                   position = "bottomleft")
+
+# Step 4. generate the tiles and provider ###
+esri <- grep("^Esri|CartoDB|OpenStreetMap", 
+             leaflet::providers, 
+             value = TRUE)
+
+for (provider in esri) {
+    l <- l  |> leaflet::addProviderTiles(provider, 
+                                         group = provider)
+}
+
+l  |>
+    leaflet::addLayersControl(baseGroups = names(esri),
+                              overlayGroups = c("legend", "DENV", "Serotipo 1",
+                                                "Serotipo 2", "Serotipo 3",
+                                                "Serotipo 4"),
+                              options = leaflet::layersControlOptions(collapsed = TRUE))  |>
+    leaflet::addMiniMap(tiles = esri[[1]], 
+                        toggleDisplay = TRUE,
+                        position = "bottomleft")  |>
+    htmlwidgets::onRender("
+    function(el, x) {
+      var myMap = this;
+      myMap.on('baselayerchange',
+        function (e) {
+          myMap.minimap.changeLayer(L.tileLayer.provider(e.name));
+        })
+    }")
+
+```
+
+
 
 **Vigilancia Entomológica**
 =====================================  
@@ -804,7 +933,9 @@ boldenr::tb_ulv(x = neb, jur = "Mérida", mun = TRUE, coldfog = FALSE)
 ```{r termo_valladolid, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
 boldenr::tb_ulv(x = neb, jur = "Valladolid", mun = TRUE, coldfog = FALSE)
 ``` 
+
 <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
+
 ####  **<span style="color:#7d9029">Termonebulización por Municipio de la Jurisdición 03 Ticul</span>**
 ```{r termo_ticul, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
 boldenr::tb_ulv(x = neb, jur = "Ticul", mun = TRUE, coldfog = FALSE)
