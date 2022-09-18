@@ -177,7 +177,7 @@ static_bump_map(dataset = x,
   <h2></h2>
   <p></p>
 
-#### **<span style="color:white">Casos por Semana & Jurisdición </span>**
+#### **<span style="color:#7d9029">Casos por Semana & Jurisdición </span>**
 ```{r}
 heatmap_confirmados(dataset = x, 
                     year = 2022, 
@@ -188,7 +188,7 @@ heatmap_confirmados(dataset = x,
                     EDO = FALSE)
 ```
 
-#### **<span style="color:white">Casos por Semana & Municipio</span>**
+#### **<span style="color:#7d9029">Casos por Semana & Municipio</span>**
 ```{r}
 heatmap_confirmados(dataset = x, 
                     year = 2022, 
@@ -219,7 +219,7 @@ heatmap_confirmados(dataset = x,
 <div class="myDiv1">
   <h2></h2>
   <p></p>
-#### **<span style="color:white">Canal Endémico Estatal </span>**
+#### **<span style="color:#7d9029">Canal Endémico Estatal </span>**
 ```{r}
 load("C:/Users/HOME/OneDrive/automatic_read_sinave/8.RData/epid_channel_data_js.RData")
 plotly::ggplotly(boldenr::epi_channel(x = boldenr::dendata_epichannel,
@@ -237,7 +237,7 @@ plotly::ggplotly(boldenr::epi_channel(x = boldenr::dendata_epichannel,
 
 ```
 
-#### **<span style="color:white">Canal Endémico Jurisdicción Mérida </span>**
+#### **<span style="color:#7d9029">Canal Endémico Jurisdicción Mérida </span>**
 ```{r}
 load("C:/Users/HOME/OneDrive/automatic_read_sinave/8.RData/epid_channel_data_js.RData")
 plotly::ggplotly(boldenr::epi_channel(x = y,
@@ -254,7 +254,7 @@ plotly::ggplotly(boldenr::epi_channel(x = y,
 
 ```
 
-#### **<span style="color:white">Canal Endémico Jurisdicción Valladolid </span>**
+#### **<span style="color:#7d9029">Canal Endémico Jurisdicción Valladolid </span>**
 ```{r}
 load("C:/Users/HOME/OneDrive/automatic_read_sinave/8.RData/epid_channel_data_js.RData")
 
