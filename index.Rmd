@@ -769,8 +769,25 @@ boldenr::hot_blocks(loc = "Tekax De Álvaro Obregón",
 ```
 
 #### **<span style="color:#7d9029"> Predicción del Número de Huevos en el área urbana de Tekax en la semana `r lubridate::epiweek(Sys.Date())-1`</span>**
-```{r eggs_prediction_tekax, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
-
+```{r eggs_prediction_tekax, echo=FALSE, error=FALSE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
+deneggs::eggs_hotspots(path_lect = path_vect,
+                       cve_ent = 31,
+                       locality  = "Tekax De Álvaro Obregón",
+                       path_coord = path_coord,
+                       longitude  = "Pocision_X",
+                       latitude =  "Pocision_Y",
+                       aproximation = "gaussian",
+                       integration = "eb",
+                       fam = "zeroinflatednbinomial1",
+                       k = 80,
+                       palette_vir  = "magma",
+                       leg_title = "Huevos",
+                       plot = TRUE,
+                       hist_dataset = FALSE, ##### NOTA
+                       sem = lubridate::epiweek(Sys.Date())-1,
+                       var = "eggs",
+                       cell_size = 2000,
+                       alpha = .99)$map
 
 ```
 
@@ -810,8 +827,25 @@ boldenr::hot_blocks(loc = "Oxkutzcab",
 ```
 
 #### **<span style="color:#7d9029"> Predicción del Número de Huevos en el área urbana de Oxkutzcab en la semana `r lubridate::epiweek(Sys.Date())-1`</span>**
-```{r eggs_prediction_oxkutzcab, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
-
+```{r eggs_prediction_oxkutzcab, echo=FALSE, error=FALSE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
+deneggs::eggs_hotspots(path_lect = path_vect,
+                       cve_ent = 31,
+                       locality  = "Oxkutzcab",
+                       path_coord = path_coord,
+                       longitude  = "Pocision_X",
+                       latitude =  "Pocision_Y",
+                       aproximation = "gaussian",
+                       integration = "eb",
+                       fam = "zeroinflatednbinomial1",
+                       k = 80,
+                       palette_vir  = "magma",
+                       leg_title = "Huevos",
+                       plot = FALSE,
+                       hist_dataset = FALSE, ##### NOTA
+                       sem = lubridate::epiweek(Sys.Date())-1,
+                       var = "eggs",
+                       cell_size = 2000,
+                       alpha = .99)$map
 
 ```
 
