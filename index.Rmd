@@ -1960,7 +1960,203 @@ plotly::ggplotly(ggplot2::ggplot() +
 
 ```
 
-### **<span style="color:#990000">Hunucma</span>**
+### **<span style="color:#990000">Valladolid</span>**
+
+```{r vector_hotspots_valladolid}
+# Step 1. extract the locality 
+locality <- extract_locality(cve_edo = "31", locality = "Valladolid")
+
+# Step 2. extract the hotspots of locality
+hotspots <- cases_hotspots_agebs19[locality, ]
+
+# step 2. extract the eggs hotspots of locality ####
+
+# Step 2.1 convert the df to sf object 
+x <- betas_31_yucatan |>
+    dplyr::mutate(long = x,
+                  lat = y) |>
+    sf::st_as_sf(coords = c("long", "lat"),
+                 crs = 4326)
+
+# Step 2.2 extract the eggs hotspots of locality
+x <- x[locality, ] 
+
+# Step 3. calculate the intensity 
+x <- x |>
+    sf::st_drop_geometry() |>
+    dplyr::group_by(year) |>
+    tidyr::nest() |>
+    dplyr::mutate(intensity = purrr::map(data,intensity_function)) |>
+    dplyr::select(-data) |>
+    tidyr::unnest(cols = c(intensity))
+
+
+# step 4 plot the map ####
+plotly::ggplotly(ggplot2::ggplot() +
+                     ggplot2::geom_tile(data = x,
+                                        ggplot2::aes(x = x,
+                                                     y = y,
+                                                     fill = intensity)) +
+                     #ggplot2::scale_fill_distiller(palette = input$variablespalette, direction = 1) +
+                     ggplot2::scale_fill_distiller(palette = "Blues", direction = 1) +
+                     ggplot2::geom_sf(data = locality,  
+                                      alpha = 1, 
+                                      fill = NA,
+                                      col = "black", 
+                                      lwd = 0.5) +
+                     ggplot2::geom_sf(data = hotspots |> dplyr::filter(intensity_gi > 0), 
+                                      fill = NA, 
+                                      alpha = 1, 
+                                      col = "darkgreen", 
+                                      lwd = 0.1) +
+                     ggplot2::facet_wrap(facets = "year") +
+                     ggplot2::theme_void() +
+                     ggplot2::theme(legend.position = "bottom") +
+                     ggplot2::theme(legend.key.size = ggplot2::unit(.8, "cm"),
+                                    legend.key.width = ggplot2::unit(.5,"cm"),
+                                    legend.margin= ggplot2::margin(0,0,0,0),
+                                    legend.box.margin= ggplot2::margin(-20,0,0,0)) +
+                     ggplot2::theme(legend.text = ggplot2::element_text(colour = "black",
+                                                                        face  = "bold"),
+                                    legend.title = ggplot2::element_text(colour = "darkred",
+                                                                         face  = "bold")) +
+                     ggplot2::theme(strip.text = ggplot2::element_text(size = 11,
+                                                                       face = "bold"))) |>
+    plotly::layout(legend = list(orientation = 'h'))
+
+```
+
+### **<span style="color:#990000">Tizimin</span>**
+
+```{r vector_hotspots_tizimin}
+# Step 1. extract the locality 
+locality <- extract_locality(cve_edo = "31", locality = "Tizimin")
+
+# Step 2. extract the hotspots of locality
+hotspots <- cases_hotspots_agebs19[locality, ]
+
+# step 2. extract the eggs hotspots of locality ####
+
+# Step 2.1 convert the df to sf object 
+x <- betas_31_yucatan |>
+    dplyr::mutate(long = x,
+                  lat = y) |>
+    sf::st_as_sf(coords = c("long", "lat"),
+                 crs = 4326)
+
+# Step 2.2 extract the eggs hotspots of locality
+x <- x[locality, ] 
+
+# Step 3. calculate the intensity 
+x <- x |>
+    sf::st_drop_geometry() |>
+    dplyr::group_by(year) |>
+    tidyr::nest() |>
+    dplyr::mutate(intensity = purrr::map(data,intensity_function)) |>
+    dplyr::select(-data) |>
+    tidyr::unnest(cols = c(intensity))
+
+
+# step 4 plot the map ####
+plotly::ggplotly(ggplot2::ggplot() +
+                     ggplot2::geom_tile(data = x,
+                                        ggplot2::aes(x = x,
+                                                     y = y,
+                                                     fill = intensity)) +
+                     #ggplot2::scale_fill_distiller(palette = input$variablespalette, direction = 1) +
+                     ggplot2::scale_fill_distiller(palette = "Blues", direction = 1) +
+                     ggplot2::geom_sf(data = locality,  
+                                      alpha = 1, 
+                                      fill = NA,
+                                      col = "black", 
+                                      lwd = 0.5) +
+                     ggplot2::geom_sf(data = hotspots |> dplyr::filter(intensity_gi > 0), 
+                                      fill = NA, 
+                                      alpha = 1, 
+                                      col = "darkgreen", 
+                                      lwd = 0.1) +
+                     ggplot2::facet_wrap(facets = "year") +
+                     ggplot2::theme_void() +
+                     ggplot2::theme(legend.position = "bottom") +
+                     ggplot2::theme(legend.key.size = ggplot2::unit(.8, "cm"),
+                                    legend.key.width = ggplot2::unit(.5,"cm"),
+                                    legend.margin= ggplot2::margin(0,0,0,0),
+                                    legend.box.margin= ggplot2::margin(-20,0,0,0)) +
+                     ggplot2::theme(legend.text = ggplot2::element_text(colour = "black",
+                                                                        face  = "bold"),
+                                    legend.title = ggplot2::element_text(colour = "darkred",
+                                                                         face  = "bold")) +
+                     ggplot2::theme(strip.text = ggplot2::element_text(size = 11,
+                                                                       face = "bold"))) |>
+    plotly::layout(legend = list(orientation = 'h'))
+
+```
+
+### **<span style="color:#990000">Ticul</span>**
+
+```{r vector_hotspots_ticul}
+# Step 1. extract the locality 
+locality <- extract_locality(cve_edo = "31", locality = "Ticul")
+
+# Step 2. extract the hotspots of locality
+hotspots <- cases_hotspots_agebs19[locality, ]
+
+# step 2. extract the eggs hotspots of locality ####
+
+# Step 2.1 convert the df to sf object 
+x <- betas_31_yucatan |>
+    dplyr::mutate(long = x,
+                  lat = y) |>
+    sf::st_as_sf(coords = c("long", "lat"),
+                 crs = 4326)
+
+# Step 2.2 extract the eggs hotspots of locality
+x <- x[locality, ] 
+
+# Step 3. calculate the intensity 
+x <- x |>
+    sf::st_drop_geometry() |>
+    dplyr::group_by(year) |>
+    tidyr::nest() |>
+    dplyr::mutate(intensity = purrr::map(data,intensity_function)) |>
+    dplyr::select(-data) |>
+    tidyr::unnest(cols = c(intensity))
+
+
+# step 4 plot the map ####
+plotly::ggplotly(ggplot2::ggplot() +
+                     ggplot2::geom_tile(data = x,
+                                        ggplot2::aes(x = x,
+                                                     y = y,
+                                                     fill = intensity)) +
+                     #ggplot2::scale_fill_distiller(palette = input$variablespalette, direction = 1) +
+                     ggplot2::scale_fill_distiller(palette = "Blues", direction = 1) +
+                     ggplot2::geom_sf(data = locality,  
+                                      alpha = 1, 
+                                      fill = NA,
+                                      col = "black", 
+                                      lwd = 0.5) +
+                     ggplot2::geom_sf(data = hotspots |> dplyr::filter(intensity_gi > 0), 
+                                      fill = NA, 
+                                      alpha = 1, 
+                                      col = "darkgreen", 
+                                      lwd = 0.1) +
+                     ggplot2::facet_wrap(facets = "year") +
+                     ggplot2::theme_void() +
+                     ggplot2::theme(legend.position = "bottom") +
+                     ggplot2::theme(legend.key.size = ggplot2::unit(.8, "cm"),
+                                    legend.key.width = ggplot2::unit(.5,"cm"),
+                                    legend.margin= ggplot2::margin(0,0,0,0),
+                                    legend.box.margin= ggplot2::margin(-20,0,0,0)) +
+                     ggplot2::theme(legend.text = ggplot2::element_text(colour = "black",
+                                                                        face  = "bold"),
+                                    legend.title = ggplot2::element_text(colour = "darkred",
+                                                                         face  = "bold")) +
+                     ggplot2::theme(strip.text = ggplot2::element_text(size = 11,
+                                                                       face = "bold"))) |>
+    plotly::layout(legend = list(orientation = 'h'))
+
+```
 
 
 
