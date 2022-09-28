@@ -14,7 +14,14 @@ cover-image: images/cover.jpg
 # Load the dengue dataset 
 x <- boldenr::read_dataset_bol(path = "C:/Users/HOME/OneDrive/datasets/DGE/arbo/",
                                 dataset = "sinave")
+
+# load the heatmap confirmados y hospitalizados function 
 source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/heatmap_confirmados.R')
+
+# Step 2. load the function ####
+source("C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_denv_dash_yuc/functions/heatmap_hospitalizados.R")
+
+
 
 library(magrittr)
 
@@ -228,6 +235,47 @@ heatmap_confirmados(dataset = x,
 </div>
 </body>
 </html>
+
+
+### **<span style="color:#7d9029"> Hospitalizados por JS & Municipio </span>**
+<html>
+<head>
+<style>
+.myDiv1 {
+  border: 2px outset darkgreen;
+  background-color: darkgreen;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="myDiv1">
+  <h2></h2>
+  <p></p>
+
+#### **<span style="color:#7d9029">Casos Hospitalizados por Semana & Jurisdición </span>**
+```{r}
+heatmap_hospitalizados(dataset = x,
+                       year = 2022,
+                       size_text = 3,
+                       state = "YUCATAN",
+                       JS = TRUE)
+```
+
+#### **<span style="color:#7d9029">Casos Hospitalizados por Semana & Municipio</span>**
+```{r}
+heatmap_hospitalizados(dataset = x,
+                       year = 2022,
+                       size_text = 3,
+                       state = "YUCATAN",
+                       JS = FALSE)
+```
+</div>
+</body>
+</html>
+
+
 
 
 ### **<span style="color:#7d9029">Canal Endémico </span>**
