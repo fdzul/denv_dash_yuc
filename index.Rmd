@@ -51,7 +51,9 @@ neb <- boldenr::read_dataset_bol(path = path_vect,
 # Step 1. load the hotspots dengue cases ####
 
 load("C:/Users/HOME/Dropbox/hotspots_2021/8.RData/cases_hotspots_agebs19.RData")
-cases_hotspots_agebs19 <- cases_hotspots_agebs19 |> sf::st_make_valid()
+#load("C:/Users/HOME/Dropbox/hotspots_2021/8.RData/hotspots_ageb_31_yucatan.RData")
+cases_hotspots_agebs19 <- cases_hotspots_agebs19 |>
+    sf::st_make_valid()
 
 # Step 2. load the risk_ageb function ####
 source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/risk_agebs.R')
@@ -1239,7 +1241,7 @@ hotspots <- cases_hotspots_agebs19[loc,]
 glm.fit <- glm(hotspots_gi ~ DENV_2008 + DENV_2009 +  DENV_2010 + DENV_2011 + 
                    DENV_2012 + DENV_2013  +  DENV_2014 + 
                    DENV_2015  +  DENV_2016  +  DENV_2019 +
-                   DENV_2020,
+                   DENV_2020 + DENV_2021,
                data = hotspots, 
                family = binomial)
 
