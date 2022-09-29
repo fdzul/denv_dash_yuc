@@ -95,6 +95,7 @@ load("C:/Users/HOME/OneDrive/proyects/hotspots_eggs/8.RData/31_yucatan/betas/31_
 ```
 
 ```{r libraris}
+options(shiny.maxRequestSize=30*1024^2)
 library(formattable)
 library(tmap)
 library(rmarkdown)
@@ -2483,6 +2484,78 @@ plotly::ggplotly(ggplot2::ggplot() +
     plotly::layout(legend = list(orientation = 'h'))
 
 ```
+
+
+
+**Dengue Risk Maps**
+=====================================  
+
+Column {.tabset}
+-------------------------------------
+
+### **<span style="color:#7d9029">Mérida</span>**
+
+```{r, risk_map_merida, echo=FALSE}
+risk <- risk_agebs(spde_model = betas_31_yucatan,
+                          hotspots = cases_hotspots_agebs19,
+                          locality = "Mérida",
+                          cve_ent = "31",
+                          intensity_perc = 25)
+risk_map(risk = risk, staticmap = FALSE)
+```
+
+
+### **<span style="color:#7d9029">Valladolid</span>**
+
+```{r, risk_map_valladolid, echo=FALSE}
+risk <- risk_agebs(spde_model = betas_31_yucatan,
+                          hotspots = cases_hotspots_agebs19,
+                          locality = "Valladolid",
+                          cve_ent = "31",
+                          intensity_perc = 25)
+risk_map(risk = risk, staticmap = FALSE)
+```
+
+
+### **<span style="color:#7d9029">Tizimín</span>**
+
+```{r, risk_map_tizimin, echo=FALSE}
+risk <- risk_agebs(spde_model = betas_31_yucatan,
+                          hotspots = cases_hotspots_agebs19,
+                          locality = "Tizimín",
+                          cve_ent = "31",
+                          intensity_perc = 25)
+risk_map(risk = risk, staticmap = FALSE)
+```
+
+### **<span style="color:#7d9029">Ticul</span>**
+
+```{r, risk_map_ticul, echo=FALSE}
+risk <- risk_agebs(spde_model = betas_31_yucatan,
+                          hotspots = cases_hotspots_agebs19,
+                          locality = "Ticul",
+                          cve_ent = "31",
+                          intensity_perc = 25)
+risk_map(risk = risk, staticmap = FALSE)
+```
+
+
+
+**Cadenas de Transmisión**
+=====================================  
+
+Column {.tabset}
+-------------------------------------
+
+
+### **<span style="color:#7d9029">Merida</span>**
+
+### **<span style="color:#7d9029">Valladolid</span>**
+
+### **<span style="color:#7d9029">Tizimín</span>**
+
+### **<span style="color:#7d9029">Ticul</span>**
+
 
 
 
