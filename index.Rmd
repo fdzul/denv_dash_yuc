@@ -2552,8 +2552,8 @@ Column {.tabset}
 
 ```{r cadenas_merida}
 
-load("C:/Users/HOME/OneDrive/proyects/geocoding_mex/2022/9.RData_geocoded/denv_31_yucatan.RData")
-
+#load("C:/Users/HOME/OneDrive/proyects/geocoding_mex/2022/9.RData_geocoded/denv_31_yucatan.RData")
+ load("C:/Users/HOME/OneDrive/proyects/geocoding_mex/2022/9.RData_geocoded/den2022_positivos.RData")
 
 # Step 2. create the column onset and conver to sf object ####
 z$onset <- z$FEC_INI_SIGNOS_SINT
@@ -2592,15 +2592,3 @@ denhotspots::space_time_link_map(x = knox_res,
                                  maptype = "interactive_map",
                                  facetmap = FALSE)
 ```
-
-
-### **<span style="color:#7d9029">Valladolid</span>**
-
-### **<span style="color:#7d9029">Tizimín</span>**
-
-### **<span style="color:#7d9029">Ticul</span>**
-
-
-
-
-
