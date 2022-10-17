@@ -748,7 +748,7 @@ deneggs::eggs_hotspots(path_lect = path_vect,
                        leg_title = "Huevos",
                        plot = FALSE,
                        hist_dataset = FALSE, ##### NOTA
-                       sem = lubridate::epiweek(Sys.Date())-1,
+                       sem = lubridate::epiweek(Sys.Date())-2,
                        var = "eggs",
                        cell_size = 2000,
                        alpha = .99)$map
@@ -768,24 +768,6 @@ boldenr::ovitraps_indicator(x = ovis,
 
 #### **<span style="color:#7d9029"> Predicción del Número de Huevos en el área urbana de Piste en la semana `r lubridate::epiweek(Sys.Date())-1`</span>**
 ```{r eggs_prediction_piste, echo=FALSE, error=FALSE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center", out.width="90%", fig.show = "hold"}
-deneggs::eggs_hotspots(path_lect = path_vect,
-                       cve_ent = 31,
-                       locality  = "Piste",
-                       path_coord = path_coord,
-                       longitude  = "Pocision_X",
-                       latitude =  "Pocision_Y",
-                       aproximation = "gaussian",
-                       integration = "eb",
-                       fam = "zeroinflatednbinomial1",
-                       k = 80,
-                       palette_vir  = "magma",
-                       leg_title = "Huevos",
-                       plot = FALSE,
-                       hist_dataset = FALSE, ##### NOTA
-                       sem = lubridate::epiweek(Sys.Date())-1,
-                       var = "eggs",
-                       cell_size = 2000,
-                       alpha = .99)$map
 
 ```
 
