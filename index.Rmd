@@ -21,7 +21,8 @@ source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dash
 # Step 2. load the function ####
 source("C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_denv_dash_yuc/functions/heatmap_hospitalizados.R")
 
-
+# Step load the leaflet map of larvae control ####
+source("C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/cl_interactive_map.R")
 
 library(magrittr)
 
@@ -40,12 +41,56 @@ load("C:/Users/HOME/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RDat
 # load the control larvario dataset
 cl <- boldenr::read_dataset_bol(path = path_vect, 
                                 dataset = "vectores",
-                                inf = "Control")
+                                inf = "Control") |>
+    dplyr::mutate(cve_geo = paste(cve_ent, cve_mpo, 
+                                  #cve_loc, # 423522
+                                  sector, 
+                                  Manzana, sep = ""))
+
+# Step 2. load the blocks ine 2020 ####
+library(sf)
+blocks_ine <- rgeomex::blocks_ine20_mx_e |>
+    dplyr::filter(entidad == "31")
+
+
+# Step 3. load the AGEM inegi 2019 ####
+mpo_inegi <- rgeomex::AGEM_inegi19_mx[, c("CVE_MUN", "geometry")] 
+
+# Step 4. spatial joint for add the CVE_MUN to ine blocks 2020 ####
+ blocks_ine <- sf::st_join(x = blocks_ine,
+                           y = mpo_inegi) |>
+    dplyr::mutate(cve_geo = paste(stringr::str_pad(entidad, pad = "0", width = 2, side = "left"),
+                                  stringr::str_pad(CVE_MUN, pad = "0", width = 3, side = "left"),
+                                  #stringr::str_pad(localidad, pad = "0", width = 4, side = "left"),
+                                  stringr::str_pad(seccion, pad = "0", width = 4, side = "left"),
+                                  stringr::str_pad(manzana, pad = "0", width = 4, side = "left"),
+                                  sep = "")) 
+
+# Step 5. left joint control larvario and blocks ine 2020 datasets ####
+control_larvario_blocks <- dplyr::left_join(x = blocks_ine  |>
+                                                dplyr::select(geometry, cve_geo, CVE_MUN),
+                      y = cl,
+                      by  = "cve_geo") |>
+    dplyr::filter(!is.na(cve_ent))  |>
+    dplyr::mutate(coverage = dplyr::case_when(Cobertura.en.Manzana < 51 ~ "Deficiente",
+                                              Cobertura.en.Manzana >= 51 & Cobertura.en.Manzana < 70 ~ "Regular",
+                                              Cobertura.en.Manzana >= 70 & Cobertura.en.Manzana < 85 ~ "Bueno",
+                                              Cobertura.en.Manzana >= 85 ~ "Óptimo",
+                                              T ~ "NA")) |>
+    dplyr::mutate(coverage =  factor(coverage,
+                                     levels = c("Bueno","Deficiente","Óptimo","Regular")[c(3, 1, 4, 2)],
+                                     labels = c("Bueno","Deficiente","Óptimo","Regular")[c(3, 1, 4, 2)]))
+
 
 # Load the ulv dataset ####
 neb <- boldenr::read_dataset_bol(path = path_vect, 
                                  dataset = "vectores",
                                  inf = "Nebulizacion")
+
+# load the larvae control ####
+cl <- boldenr::read_dataset_bol(path = path_vect, 
+                                dataset = "vectores",
+                                inf = "Control")
 
 #####################
 # Step 1. load the hotspots dengue cases ####
@@ -1035,21 +1080,53 @@ Column {.tabset}
 ```{r cl_juri, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
 boldenr::cl_table(x = cl, jur = NULL, mun = FALSE)
 ``` 
+ <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
 
 ####  **<span style="color:#7d9029">Avances de Control Larvario por Municipio de la Jurisdición 01 Mérida</span>**
 ```{r cl_merida, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
 boldenr::cl_table(x = cl, jur = "Mérida", mun = TRUE)
 ``` 
 
+<hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
+
+#### **<span style="color:#7d9029">Avances de Control Larvario en el área urbana de Mérida</span>**
+```{r cl_merida_map, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
+merida_acumulado <- cl_interactive_map(cl_dataset = control_larvario_blocks,
+                                       cve_edo = "31",
+                                       locality = "Mérida",
+                                       time = "Acumulado")
+merida_dos <- cl_interactive_map(cl_dataset = control_larvario_blocks,
+                                       cve_edo = "31",
+                                       locality = "Mérida",
+                                       time = "Últimos Dos Meses")
+merida_uno <- cl_interactive_map(cl_dataset = control_larvario_blocks,
+                                       cve_edo = "31",
+                                       locality = "Mérida",
+                                       time = "Último Mes")
+merida_sem <- cl_interactive_map(cl_dataset = control_larvario_blocks,
+                                       cve_edo = "31",
+                                       locality = "Mérida",
+                                       time = "Última Semana")
+leafsync::sync(merida_acumulado, 
+               merida_dos,
+               merida_uno,
+               merida_sem)
+
+``` 
+ <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
+
+
 ####  **<span style="color:#7d9029">Avances de Control Larvario por Municipio de la Jurisdición 02 Valladolid</span>**
 ```{r cl_valladolid, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
 boldenr::cl_table(x = cl, jur = "Valladolid", mun = TRUE)
 ``` 
+ <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
 
 ####  **<span style="color:#7d9029">Avances de Control Larvario por Municipio de la Jurisdición 03 Ticul</span>**
 ```{r cl_ticul, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
 boldenr::cl_table(x = cl, jur = "Ticul", mun = TRUE)
 ``` 
+<hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
 
 </div>
 </body>
