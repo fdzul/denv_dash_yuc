@@ -1113,24 +1113,52 @@ leafsync::sync(merida_acumulado,
                merida_sem)
 
 ``` 
- <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
+
+<hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
 
 
 ####  **<span style="color:#7d9029">Avances de Control Larvario por Municipio de la Jurisdición 02 Valladolid</span>**
 ```{r cl_valladolid, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
 boldenr::cl_table(x = cl, jur = "Valladolid", mun = TRUE)
 ``` 
- <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
+
+<hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
 
 ####  **<span style="color:#7d9029">Avances de Control Larvario por Municipio de la Jurisdición 03 Ticul</span>**
 ```{r cl_ticul, echo = FALSE, error = TRUE, cache = TRUE,  fig.align = "center", message=FALSE, dpi=300, warning = FALSE,fig.show = "hold"}
 boldenr::cl_table(x = cl, jur = "Ticul", mun = TRUE)
 ``` 
-<hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
 
 </div>
 </body>
 </html>
+
+#### **<span style="color:#660033">Control Larvario en Mérida</span>**
+```{r cl_map_merida, echo = FALSE, error = TRUE,  message=FALSE, dpi=300, warning = FALSE}
+acumulado <- cl_interactive_map(cl_dataset = control_larvario_blocks,
+                                       cve_edo = "31",
+                                       locality = "Mérida",
+                                       time = "Acumulado")
+dos <- cl_interactive_map(cl_dataset = control_larvario_blocks,
+                                       cve_edo = "31",
+                                       locality = "Mérida",
+                                       time = "Últimos Dos Meses")
+uno <- cl_interactive_map(cl_dataset = control_larvario_blocks,
+                                       cve_edo = "31",
+                                       locality = "Mérida",
+                                       time = "Último Mes")
+sem <- cl_interactive_map(cl_dataset = control_larvario_blocks,
+                                       cve_edo = "31",
+                                       locality = "Mérida",
+                                       time = "Última Semana")
+leafsync::sync(acumulado, 
+               dos,
+               uno,
+               sem)
+
+``` 
+
+
 
 ### **<span style="color:#660033"> Nebulización en Frío (ULV)</span>**
 <html>
