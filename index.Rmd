@@ -1133,7 +1133,7 @@ boldenr::cl_table(x = cl, jur = "Ticul", mun = TRUE)
 </body>
 </html>
 
-#### **<span style="color:#660033">Control Larvario en Mérida</span>**
+### **<span style="color:#660033">Control Larvario en Mérida</span>**
 ```{r cl_map_merida, echo = FALSE, error = TRUE,  message=FALSE, dpi=300, warning = FALSE}
 acumulado <- cl_interactive_map(cl_dataset = control_larvario_blocks,
                                        cve_edo = "31",
@@ -1154,7 +1154,8 @@ sem <- cl_interactive_map(cl_dataset = control_larvario_blocks,
 leafsync::sync(acumulado, 
                dos,
                uno,
-               sem)
+               sem,
+               no.initial.sync = TRUE)
 
 ``` 
 
