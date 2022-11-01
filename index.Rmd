@@ -2748,24 +2748,84 @@ transmission_chains_map(geocoded_dataset = y,
                                     dengue_cases = "Confirmado")
 ```
 
-### **<span style="color:#7d9029">Yucatan </span>**
 
-```{r cadenas_yucatan}
+### **<span style="color:#7d9029">Mérida (Probables)</span>**
+
+```{r cadenas_Mérida_probable}
 # Step 1. load the dengue geocoded dataset
 load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
 # Step 2. load the transmission_chains_map function ####
 source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
-confirmado <- transmission_chains_map(geocoded_dataset = y,
+transmission_chains_map(geocoded_dataset = y,
                                     cve_edo = "31",
-                                    locality = NULL,
-                                    dengue_cases = "Confirmado")
-probable <- transmission_chains_map(geocoded_dataset = y,
-                                    cve_edo = "31",
-                                    locality = NULL,
+                                    locality = "Merida",
                                     dengue_cases = "Probable")
-
-leafsync::sync(list(probable, 
-                    confirmado))
-
 ```
 
+### **<span style="color:#7d9029">Mérida (Confirmados)</span>**
+
+```{r cadenas_merida_confirmados}
+# Step 1. load the dengue geocoded dataset
+load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
+# Step 2. load the transmission_chains_map function ####
+source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
+transmission_chains_map(geocoded_dataset = y,
+                                    cve_edo = "31",
+                                    locality = "Merida",
+                                    dengue_cases = "Confirmado")
+```
+
+
+
+### **<span style="color:#7d9029">Valladolid (Probables)</span>**
+
+```{r cadenas_valladolid_probable}
+# Step 1. load the dengue geocoded dataset
+load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
+# Step 2. load the transmission_chains_map function ####
+source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
+transmission_chains_map(geocoded_dataset = y,
+                                    cve_edo = "31",
+                                    locality = "Valladolid",
+                                    dengue_cases = "Probable")
+```
+
+### **<span style="color:#7d9029">Valladolid (Confirmados)</span>**
+
+```{r cadenas_valladolid_confirmados}
+# Step 1. load the dengue geocoded dataset
+load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
+# Step 2. load the transmission_chains_map function ####
+source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
+transmission_chains_map(geocoded_dataset = y,
+                                    cve_edo = "31",
+                                    locality = "Valladolid",
+                                    dengue_cases = "Confirmado")
+```
+
+
+### **<span style="color:#7d9029">Temozon (Probables)</span>**
+
+```{r cadenas_temozon_probable}
+# Step 1. load the dengue geocoded dataset
+load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
+# Step 2. load the transmission_chains_map function ####
+source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
+transmission_chains_map(geocoded_dataset = y,
+                                    cve_edo = "31",
+                                    locality = "Temozon",
+                                    dengue_cases = "Probable")
+```
+
+### **<span style="color:#7d9029">Temozon (Confirmados)</span>**
+
+```{r cadenas_temozon_confirmados}
+# Step 1. load the dengue geocoded dataset
+load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
+# Step 2. load the transmission_chains_map function ####
+source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
+transmission_chains_map(geocoded_dataset = y,
+                                    cve_edo = "31",
+                                    locality = "Temozon",
+                                    dengue_cases = "Confirmado")
+```
