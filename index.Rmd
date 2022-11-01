@@ -2722,44 +2722,28 @@ Column {.tabset}
 -------------------------------------
 
 
-### **<span style="color:#7d9029">Merida</span>**
+### **<span style="color:#7d9029">Yucatan (Probables)</span>**
 
-```{r cadenas_merida}
-load("~/OneDrive/proyects/geocoding_mex/2022/9.RData_geocoded/den2022_positivos.RData")
-# Step 2. create the column onset and conver to sf object ####
-z$onset <- z$FEC_INI_SIGNOS_SINT
-z <- z |>
-    dplyr::mutate(x = long,
-                  y = lat) |>
-    sf::st_as_sf(coords = c("long", "lat"),
-                 crs = 4326) |>
-    sf::st_make_valid()
+```{r cadenas_yucatan_probable}
+# Step 1. load the dengue geocoded dataset
+load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
+# Step 2. load the transmission_chains_map function ####
+source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
+transmission_chains_map(geocoded_dataset = y,
+                                    cve_edo = "31",
+                                    locality = NULL,
+                                    dengue_cases = "Probable")
+```
 
-# Step 3. Extract the high risk localities of Yucatán ####
-loc <- extract_locality(cve_edo = "31",
-                         locality = c("Mérida"))
+### **<span style="color:#7d9029">Yucatan (Confirmados)</span>**
 
-# Step 4. Extract the dengue cases of  high risk localities #####
-z <- z[loc, ] |>
-    dplyr::select(onset, VEC_ID, x, y, IDE_EDA_ANO) |>
-    sf::st_drop_geometry()
-
-
-# Step 5. aplicar la prueba de knox
-library(magrittr)
-knox_res <- denhotspots::knox(x = z, 
-                              crs = "+proj=eqc", 
-                              ds = 400, # distance in meters
-                              dt = 20,  # days 0 to 20 day
-                              sym = 1000, 
-                              sp_link = FALSE, # for sf
-                              planar_coord = FALSE)
-
-library(leaflet)
-library(sf)
-denhotspots::space_time_link_map(x = knox_res,
-                                 locality = "Mérida",
-                                 cve_edo = "31",
-                                 maptype = "interactive_map",
-                                 facetmap = FALSE)
+```{r cadenas_yucatan_confirmados}
+# Step 1. load the dengue geocoded dataset
+load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
+# Step 2. load the transmission_chains_map function ####
+source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
+transmission_chains_map(geocoded_dataset = y,
+                                    cve_edo = "31",
+                                    locality = NULL,
+                                    dengue_cases = "Confirmado")
 ```
