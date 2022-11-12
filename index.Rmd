@@ -59,11 +59,14 @@ if(as.vector(Sys.info()["sysname"]) == "Darwin"){
     source("~/Dropbox/r_developments/r_new_functions/3.Functions/heatmap_confirmados.R")
     source("~/Dropbox/r_developments/r_new_functions/3.Functions/heatmap_hospitalizados.R")
     source("~/Dropbox/r_developments/r_new_functions/3.Functions/static_bump_map.R")
+    
+    
     # 1.3 ovitraps dataset 
-       source("~/Dropbox/r_developments/r_new_functions/3.Functions/ovitraps_occupancy_abundancy.R")
+    source("~/Dropbox/r_developments/r_new_functions/3.Functions/ovitraps_occupancy_abundancy.R")
 
     # 1.4 larvae control dataset
     source("~/Dropbox/r_developments/r_new_functions/3.Functions/cl_interactive_map.R")
+    
     # 1.5 ulv dataset
     
     # 1.6 hotspots
@@ -76,17 +79,21 @@ if(as.vector(Sys.info()["sysname"]) == "Darwin"){
 } else if(as.vector(Sys.info()["sysname"]) == "Windows"){
     # 1.1. dengue dataset
     
-    # load the heatmap confirmados y hospitalizados function 
-source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/heatmap_confirmados.R')
-
-source("C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_denv_dash_yuc/functions/heatmap_hospitalizados.R")
+    # load the heatmap confirmados y hospitalizados function
+    source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/heatmap_confirmados.R')
+    source("C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_denv_dash_yuc/functions/heatmap_hospitalizados.R")
+    source("C:/Users/HOME/Dropbox/r_developments/r_new_functions/3.Functions/static_bump_map.R")
     
     # 1.3 ovitraps dataset 
+    source("C:/Users/HOME/Dropbox/r_developments/r_new_functions/3.Functions/ovitraps_occupancy_abundancy.R")
     
     # 1.4 larvae control dataset
+     source("C:/Users/HOME//Dropbox/r_developments/r_new_functions/3.Functions/cl_interactive_map.R")
     
-    # 1.5 hotspots
-source("C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/cl_interactive_map.R")
+    # 1.5 ulv dataset
+    
+    # 1.6 hotspots
+    source("C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/cl_interactive_map.R")
 
     #Step  load the risk_ageb function ###
     source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/risk_agebs.R')
@@ -143,21 +150,35 @@ if(as.vector(Sys.info()["sysname"]) == "Darwin"){
     load("~/Dropbox/hotspots_2021/8.RData/cases_hotspots_agebs19.RData")
     cases_hotspots_agebs19 <- cases_hotspots_agebs19 |>
     sf::st_make_valid()
+    
+    # data for epichannel data
     load("~/OneDrive/automatic_read_sinave/8.RData/epid_channel_data_js.RData")
     load("~/OneDrive/proyects/geocoding_mex/2022/9.RData_geocoded/den2022_positivos.RData")
     load("~/OneDrive/proyects/geocoding_mex/2022/9.RData_geocoded/den2022_positivos.RData")
+    
     # load the vector hotspots
     load("~/OneDrive/proyects/hotspots_eggs/8.RData/31_yucatan/betas/31_yucatan_zinb1_betas.RData")
     
 } else if(as.vector(Sys.info()["sysname"]) == "Windows"){
-   # load the blocks #####
+    
+    # load the blocks #####
     load("C:/Users/HOME/OneDrive/automatic_read_ine_2010/8.RData/block_ine10_mx.RData") 
+    
     # Step 1. load the hotspots dengue cases ####
     load("C:/Users/HOME/Dropbox/hotspots_2021/8.RData/cases_hotspots_agebs19.RData")
     
     cases_hotspots_agebs19 <- cases_hotspots_agebs19 |>
     sf::st_make_valid()
-    #
+    
+    # data for epichannel data
+    load("C:/Users/HOME/OneDrive/automatic_read_sinave/8.RData/epid_channel_data_js.RData")
+    
+    # dengue dataaset geocoded
+    load("C:/Users/HOME/OneDrive/proyects/geocoding_mex/2022/9.RData_geocoded/den2022_positivos.RData")
+    load("C:/Users/HOME/OneDrive/proyects/geocoding_mex/2022/9.RData_geocoded/den_31_yucatan_2022.RData")
+    
+    # load the vector hotspots
+    load("C:/Users/HOME/OneDrive/proyects/hotspots_eggs/8.RData/31_yucatan/betas/31_yucatan_zinb1_betas.RData")
     
 } else if(as.vector(Sys.info()["sysname"]) == "Linux"){
     
@@ -356,7 +377,7 @@ static_bump_map(dataset = x,
   <p></p>
 
 #### **<span style="color:#7d9029">Casos por Semana & Jurisdición </span>**
-```{r}
+```{r casos_semana_jur}
 heatmap_confirmados(dataset = x, 
                     year = 2022, 
                     size_text = 3,
@@ -367,7 +388,7 @@ heatmap_confirmados(dataset = x,
 ```
 
 #### **<span style="color:#7d9029">Casos por Semana & Municipio</span>**
-```{r}
+```{r casos_semana_mpo}
 heatmap_confirmados(dataset = x, 
                     year = 2022, 
                     size_text = 3,
@@ -399,7 +420,7 @@ heatmap_confirmados(dataset = x,
   <p></p>
 
 #### **<span style="color:#7d9029">Casos Hospitalizados por Semana & Jurisdición </span>**
-```{r}
+```{r casos_hospitalizados_semana_jur}
 heatmap_hospitalizados(dataset = x,
                        year = 2022,
                        size_text = 3,
@@ -408,7 +429,7 @@ heatmap_hospitalizados(dataset = x,
 ```
 
 #### **<span style="color:#7d9029">Casos Hospitalizados por Semana & Municipio</span>**
-```{r}
+```{r casos_hospitalizados_semana_mpo}
 heatmap_hospitalizados(dataset = x,
                        year = 2022,
                        size_text = 3,
@@ -439,7 +460,7 @@ heatmap_hospitalizados(dataset = x,
   <h2></h2>
   <p></p>
 #### **<span style="color:#7d9029">Canal Endémico Estatal </span>**
-```{r}
+```{r canal_estatal}
 plotly::ggplotly(boldenr::epi_channel(x = boldenr::dendata_epichannel,
                                       edo = "YUCATAN", 
                                       jur = NULL,
@@ -456,7 +477,7 @@ plotly::ggplotly(boldenr::epi_channel(x = boldenr::dendata_epichannel,
 ```
 
 #### **<span style="color:#7d9029">Canal Endémico Jurisdicción Mérida </span>**
-```{r}
+```{r canal_jur}
 plotly::ggplotly(boldenr::epi_channel(x = y,
                                       edo = "YUCATAN", 
                                       jur = "MERIDA",
@@ -472,7 +493,7 @@ plotly::ggplotly(boldenr::epi_channel(x = y,
 ```
 
 #### **<span style="color:#7d9029">Canal Endémico Jurisdicción Valladolid </span>**
-```{r}
+```{r canal_jur_valladolid}
 plotly::ggplotly(boldenr::epi_channel(x = y,
                                       edo = "YUCATAN", 
                                       jur = "VALLADOLID",
@@ -492,7 +513,7 @@ plotly::ggplotly(boldenr::epi_channel(x = y,
 
 ### **<span style="color:#7d9029">Distribución de Casos </span>**
 
-```{r}
+```{r distribucion_casos}
 # step 1. dengue cases geocoded ####
 #load("C:/Users/HOME/OneDrive/proyects/geocoding_mex/2022/9.RData_geocoded/den2022_positivos.RData")
 # load("~/OneDrive/proyects/geocoding_mex/2022/9.RData_geocoded/den2022_positivos.RData")
@@ -644,7 +665,7 @@ Column {.tabset}
   <h2></h2>
   <p></p>
 #### **<span style="color:#7d9029">Áreas urbanas con Vigilancia Entomológica </span>**
-```{r echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center",out.width="90%", cache = TRUE, fig.show = "hold"}
+```{r vigilancia_entomologica, echo=FALSE, error=TRUE, message=FALSE,dpi=300, warning=FALSE, fig.align = "center",out.width="90%", cache = TRUE, fig.show = "hold"}
 # 1.load the AGEM of veracruz #####
 library(magrittr)
 library(sf)
@@ -2725,107 +2746,87 @@ Column {.tabset}
 ### **<span style="color:#7d9029">Yucatan (Probables)</span>**
 
 ```{r cadenas_yucatan_probable}
-# Step 1. load the dengue geocoded dataset
-load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
-# Step 2. load the transmission_chains_map function ####
-source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
-transmission_chains_map(geocoded_dataset = y,
-                                    cve_edo = "31",
-                                    locality = NULL,
-                                    dengue_cases = "Probable")
+denhotspots::transmission_chains_map(geocoded_dataset = z_yuc,
+                                     cve_edo = "31",
+                                     locality = NULL,
+                                     dengue_cases = "Probable")
 ```
 
 ### **<span style="color:#7d9029">Yucatan (Confirmados)</span>**
 
 ```{r cadenas_yucatan_confirmados}
-# Step 1. load the dengue geocoded dataset
-load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
-# Step 2. load the transmission_chains_map function ####
-source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
-transmission_chains_map(geocoded_dataset = y,
-                                    cve_edo = "31",
-                                    locality = NULL,
-                                    dengue_cases = "Confirmado")
+denhotspots::transmission_chains_map(geocoded_dataset = z_yuc,
+                                     cve_edo = "31",
+                                     locality = NULL,
+                                     dengue_cases = "Confirmado")
+
+
 ```
 
 
 ### **<span style="color:#7d9029">Mérida (Probables)</span>**
 
 ```{r cadenas_Mérida_probable}
-# Step 1. load the dengue geocoded dataset
-load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
-# Step 2. load the transmission_chains_map function ####
-source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
-transmission_chains_map(geocoded_dataset = y,
-                                    cve_edo = "31",
-                                    locality = "Merida",
-                                    dengue_cases = "Probable")
+denhotspots::transmission_chains_map(geocoded_dataset = z_yuc,
+                                     cve_edo = "31",
+                                     locality = "Merida",
+                                     dengue_cases = "Probable")
+
+
 ```
 
 ### **<span style="color:#7d9029">Mérida (Confirmados)</span>**
 
 ```{r cadenas_merida_confirmados}
-# Step 1. load the dengue geocoded dataset
-load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
-# Step 2. load the transmission_chains_map function ####
-source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
-transmission_chains_map(geocoded_dataset = y,
-                                    cve_edo = "31",
-                                    locality = "Merida",
-                                    dengue_cases = "Confirmado")
-```
+denhotspots::transmission_chains_map(geocoded_dataset = z_yuc,
+                                     cve_edo = "31",
+                                     locality = "Merida",
+                                     dengue_cases = "Confirmado")
 
+
+
+```
 
 
 ### **<span style="color:#7d9029">Valladolid (Probables)</span>**
 
 ```{r cadenas_valladolid_probable}
-# Step 1. load the dengue geocoded dataset
-load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
-# Step 2. load the transmission_chains_map function ####
-source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
-transmission_chains_map(geocoded_dataset = y,
-                                    cve_edo = "31",
-                                    locality = "Valladolid",
-                                    dengue_cases = "Probable")
+denhotspots::transmission_chains_map(geocoded_dataset = z_yuc,
+                                     cve_edo = "31",
+                                     locality = "Valladolid",
+                                     dengue_cases = "Probable")
+
+
 ```
 
 ### **<span style="color:#7d9029">Valladolid (Confirmados)</span>**
 
 ```{r cadenas_valladolid_confirmados}
-# Step 1. load the dengue geocoded dataset
-load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
-# Step 2. load the transmission_chains_map function ####
-source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
-transmission_chains_map(geocoded_dataset = y,
-                                    cve_edo = "31",
-                                    locality = "Valladolid",
-                                    dengue_cases = "Confirmado")
+denhotspots::transmission_chains_map(geocoded_dataset = z_yuc,
+                                     cve_edo = "31",
+                                     locality = "Valladolid",
+                                     dengue_cases = "Confirmado")
+
+
 ```
 
 
 ### **<span style="color:#7d9029">Temozon (Probables)</span>**
 
 ```{r cadenas_temozon_probable}
-# Step 1. load the dengue geocoded dataset
-load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
-# Step 2. load the transmission_chains_map function ####
-source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
-transmission_chains_map(geocoded_dataset = y,
-                                    cve_edo = "31",
-                                    locality = "Temozon",
-                                    dengue_cases = "Probable")
+denhotspots::transmission_chains_map(geocoded_dataset = z_yuc,
+                                     cve_edo = "31",
+                                     locality = "Temozon",
+                                     dengue_cases = "Probable")
+
+
 ```
 
 ### **<span style="color:#7d9029">Temozon (Confirmados)</span>**
 
 ```{r cadenas_temozon_confirmados}
-# Step 1. load the dengue geocoded dataset
-load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2022/9.RData_geocoded/geo_den_mx_31_merida_2022_10_31.RData")
-# Step 2. load the transmission_chains_map function ####
-source("~/Dropbox/r_developments/r_new_functions/3.Functions/transmission_chains_map.R")
-transmission_chains_map(geocoded_dataset = y,
-                                    cve_edo = "31",
-                                    locality = "Temozon",
-                                    dengue_cases = "Confirmado")
+denhotspots::transmission_chains_map(geocoded_dataset = z_yuc,
+                                     cve_edo = "31",
+                                     locality = "Temozon",
+                                     dengue_cases = "Confirmado")
 ```
