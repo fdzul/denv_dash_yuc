@@ -319,6 +319,7 @@ x  |>
 ```
 
 <div>
+
 #### **<span style="color:blue"> Casos confirmados y serotipos </span>**
 ```{r casos_serotipos,out.width="100%", out.height="100%"}
 boldenr::plot_state_serotype(dataset = x, 
@@ -338,6 +339,7 @@ heatmap_confirmados(dataset = x,
                     size_text = 3, 
                     EDO = TRUE)
 ```
+
 
 #### **<span style="color:blue"> Casos Confirmados </span>**
 ```{r bumpmap_national_2022, out.width="100%", out.height="100%"}
@@ -1461,29 +1463,33 @@ funcumsum <- function(x){
     x
 }
 # step 8.
-
-data_pareto <- hotspots   %>% 
-    sf::st_drop_geometry()  %>% 
-    dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
-                  loc = "locality")  %>% 
-    dplyr::select(loc, n_cases, hotspots_gi)  %>% 
-    dplyr::arrange(loc, desc(hotspots_gi), desc(n_cases))  %>% 
-    dplyr::group_by(loc)  %>% 
-    tidyr::nest()  %>% 
+data_pareto <- hotspots   |>
+    # sf::st_drop_geometry()  |>
+    # dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
+    #              loc = "locality")
+    #dplyr::mutate(n_cases = rowSums(dplyr::across(DENV_2008:DENV_2021)),
+    #              loc = "locality")  |>
+    dplyr::mutate(n_cases = rowSums(dplyr::across(dplyr::starts_with("DENV"))),
+                  loc = "locality") |>
+    
+    dplyr::select(loc, n_cases, hotspots_gi)  |>
+    dplyr::arrange(loc, desc(hotspots_gi), desc(n_cases))  |>
+    dplyr::group_by(loc)  |>
+    tidyr::nest()  |>
     dplyr::mutate(pareto_cases = purrr::map(data,
-                                            funcumsum))  %>% 
-    dplyr::select(-data)  %>% 
+                                            funcumsum))  |>
+    dplyr::select(-data)  |>
     tidyr::unnest(cols = c(pareto_cases))
 
 # step 4. visualization of pareto rules 
-plotly::ggplotly(denhotspots::power_law_plot(x = data_pareto))  %>%  plotly::layout(showlegend = FALSE)
+plotly::ggplotly(denhotspots::power_law_plot(x = data_pareto))  |> plotly::layout(showlegend = FALSE)
 
 ```
   </div>
   <div class="box d">
 ```{r gauge_blocks_merida,fig.align = "center", out.height='100%', out.width = '100%', fig.width= 1.5, fig.height=1}
-y_hot <- hotspots %>% dplyr::filter(hotspots_gi == 1)
-centroid <- rgeomex::blocks_ine20_mx_centroid %>%
+y_hot <- hotspots |>dplyr::filter(hotspots_gi == 1)
+centroid <- rgeomex::blocks_ine20_mx_centroid |>
   sf::st_as_sf(coords = c("x", "y"), crs = 4326)
 b_loc <- centroid[hotspots, ]
 b_hot <- b_loc[y_hot, ]
@@ -1500,12 +1506,12 @@ flexdashboard::gauge(round((nrow(b_hot)/nrow(b_loc))*100, digits = 1),
   <div class="box e">
 ```{r gauge_AGEB_merida, fig.align = "center", out.height='100%', out.width = '100%'}
 
-y <- hotspots  %>%
-    sf::st_drop_geometry() %>%
-    dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
-                  loc = "locality") %>%
+y <- hotspots  |>
+    sf::st_drop_geometry() |>
+     dplyr::mutate(n_cases = rowSums(dplyr::across(dplyr::starts_with("DENV"))),
+                  loc = "locality") |>
     dplyr::select(loc, n_cases, hotspots_gi) 
-y_hot <- y %>% dplyr::filter(hotspots_gi == 1)
+y_hot <- y |>dplyr::filter(hotspots_gi == 1)
   
 flexdashboard::gauge(round((nrow(y_hot)/nrow(y))*100, digits = 1),
       min = 0, max = 100, 
@@ -1520,12 +1526,12 @@ flexdashboard::gauge(round((nrow(y_hot)/nrow(y))*100, digits = 1),
 <div class="box f">
 ```{r gauge_casos_merida, out.height='90%', out.width = '90%', fig.align = "center"}
 
-y <- hotspots  %>%
-    sf::st_drop_geometry() %>%
-    dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
-                  loc = "locality") %>%
+y <- hotspots  |>
+    sf::st_drop_geometry() |>
+      dplyr::mutate(n_cases = rowSums(dplyr::across(dplyr::starts_with("DENV"))),
+                  loc = "locality") |>
     dplyr::select(loc, n_cases, hotspots_gi) 
-y_hot <- y %>% dplyr::filter(hotspots_gi == 1)
+y_hot <- y |>dplyr::filter(hotspots_gi == 1)
 
 flexdashboard::gauge(round((sum(y_hot$n_cases)/sum(y$n_cases))*100, digits = 1),
       min = 0, max = 100, 
@@ -1643,29 +1649,34 @@ funcumsum <- function(x){
     x
 }
 # step 8.
-
-data_pareto <- hotspots   %>% 
-    sf::st_drop_geometry()  %>% 
-    dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
-                  loc = "locality")  %>% 
-    dplyr::select(loc, n_cases, hotspots_gi)  %>% 
-    dplyr::arrange(loc, desc(hotspots_gi), desc(n_cases))  %>% 
-    dplyr::group_by(loc)  %>% 
-    tidyr::nest()  %>% 
+data_pareto <- hotspots   |>
+    # sf::st_drop_geometry()  |>
+    # dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
+    #              loc = "locality")
+    #dplyr::mutate(n_cases = rowSums(dplyr::across(DENV_2008:DENV_2021)),
+    #              loc = "locality")  |>
+    dplyr::mutate(n_cases = rowSums(dplyr::across(dplyr::starts_with("DENV"))),
+                  loc = "locality") |>
+    
+    dplyr::select(loc, n_cases, hotspots_gi)  |>
+    dplyr::arrange(loc, desc(hotspots_gi), desc(n_cases))  |>
+    dplyr::group_by(loc)  |>
+    tidyr::nest()  |>
     dplyr::mutate(pareto_cases = purrr::map(data,
-                                            funcumsum))  %>% 
-    dplyr::select(-data)  %>% 
+                                            funcumsum))  |>
+    dplyr::select(-data)  |>
     tidyr::unnest(cols = c(pareto_cases))
 
+
 # step 4. visualization of pareto rules 
-plotly::ggplotly(denhotspots::power_law_plot(x = data_pareto))  %>%  plotly::layout(showlegend = FALSE)
+plotly::ggplotly(denhotspots::power_law_plot(x = data_pareto))  |> plotly::layout(showlegend = FALSE)
 
 ```
   </div>
   <div class="box d">
 ```{r gauge_blocks_valladolid,fig.align = "center", out.height='100%', out.width = '100%', fig.width= 1.5, fig.height=1}
-y_hot <- hotspots %>% dplyr::filter(hotspots_gi == 1)
-centroid <- rgeomex::blocks_ine20_mx_centroid %>%
+y_hot <- hotspots |>dplyr::filter(hotspots_gi == 1)
+centroid <- rgeomex::blocks_ine20_mx_centroid |>
   sf::st_as_sf(coords = c("x", "y"), crs = 4326)
 b_loc <- centroid[hotspots, ]
 b_hot <- b_loc[y_hot, ]
@@ -1682,12 +1693,12 @@ flexdashboard::gauge(round((nrow(b_hot)/nrow(b_loc))*100, digits = 1),
   <div class="box e">
 ```{r gauge_AGEB_valladolid, fig.align = "center", out.height='100%', out.width = '100%'}
 
-y <- hotspots  %>%
-    sf::st_drop_geometry() %>%
-    dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
-                  loc = "locality") %>%
+y <- hotspots  |>
+    sf::st_drop_geometry() |>
+     dplyr::mutate(n_cases = rowSums(dplyr::across(dplyr::starts_with("DENV"))),
+                  loc = "locality") |>
     dplyr::select(loc, n_cases, hotspots_gi) 
-y_hot <- y %>% dplyr::filter(hotspots_gi == 1)
+y_hot <- y |>dplyr::filter(hotspots_gi == 1)
   
 flexdashboard::gauge(round((nrow(y_hot)/nrow(y))*100, digits = 1),
       min = 0, max = 100, 
@@ -1702,12 +1713,12 @@ flexdashboard::gauge(round((nrow(y_hot)/nrow(y))*100, digits = 1),
 <div class="box f">
 ```{r gauge_casos_valladolid, out.height='90%', out.width = '90%', fig.align = "center"}
 
-y <- hotspots  %>%
-    sf::st_drop_geometry() %>%
-    dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
-                  loc = "locality") %>%
+y <- hotspots  |>
+    sf::st_drop_geometry() |>
+     dplyr::mutate(n_cases = rowSums(dplyr::across(dplyr::starts_with("DENV"))),
+                  loc = "locality") |>
     dplyr::select(loc, n_cases, hotspots_gi) 
-y_hot <- y %>% dplyr::filter(hotspots_gi == 1)
+y_hot <- y |>dplyr::filter(hotspots_gi == 1)
 
 flexdashboard::gauge(round((sum(y_hot$n_cases)/sum(y$n_cases))*100, digits = 1),
       min = 0, max = 100, 
@@ -1823,29 +1834,34 @@ funcumsum <- function(x){
     x
 }
 # step 8.
-
-data_pareto <- hotspots   %>% 
-    sf::st_drop_geometry()  %>% 
-    dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
-                  loc = "locality")  %>% 
-    dplyr::select(loc, n_cases, hotspots_gi)  %>% 
-    dplyr::arrange(loc, desc(hotspots_gi), desc(n_cases))  %>% 
-    dplyr::group_by(loc)  %>% 
-    tidyr::nest()  %>% 
+data_pareto <- hotspots   |>
+    # sf::st_drop_geometry()  |>
+    # dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
+    #              loc = "locality")
+    #dplyr::mutate(n_cases = rowSums(dplyr::across(DENV_2008:DENV_2021)),
+    #              loc = "locality")  |>
+    dplyr::mutate(n_cases = rowSums(dplyr::across(dplyr::starts_with("DENV"))),
+                  loc = "locality") |>
+    
+    dplyr::select(loc, n_cases, hotspots_gi)  |>
+    dplyr::arrange(loc, desc(hotspots_gi), desc(n_cases))  |>
+    dplyr::group_by(loc)  |>
+    tidyr::nest()  |>
     dplyr::mutate(pareto_cases = purrr::map(data,
-                                            funcumsum))  %>% 
-    dplyr::select(-data)  %>% 
+                                            funcumsum))  |>
+    dplyr::select(-data)  |>
     tidyr::unnest(cols = c(pareto_cases))
 
+
 # step 4. visualization of pareto rules 
-plotly::ggplotly(denhotspots::power_law_plot(x = data_pareto))  %>%  plotly::layout(showlegend = FALSE)
+plotly::ggplotly(denhotspots::power_law_plot(x = data_pareto))  |> plotly::layout(showlegend = FALSE)
 
 ```
   </div>
   <div class="box d">
 ```{r gauge_blocks_tizimin,fig.align = "center", out.height='100%', out.width = '100%', fig.width= 1.5, fig.height=1}
-y_hot <- hotspots %>% dplyr::filter(hotspots_gi == 1)
-centroid <- rgeomex::blocks_ine20_mx_centroid %>%
+y_hot <- hotspots |>dplyr::filter(hotspots_gi == 1)
+centroid <- rgeomex::blocks_ine20_mx_centroid |>
   sf::st_as_sf(coords = c("x", "y"), crs = 4326)
 b_loc <- centroid[hotspots, ]
 b_hot <- b_loc[y_hot, ]
@@ -1862,12 +1878,12 @@ flexdashboard::gauge(round((nrow(b_hot)/nrow(b_loc))*100, digits = 1),
   <div class="box e">
 ```{r gauge_AGEB_tizimin, fig.align = "center", out.height='100%', out.width = '100%'}
 
-y <- hotspots  %>%
-    sf::st_drop_geometry() %>%
-    dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
-                  loc = "locality") %>%
+y <- hotspots  |>
+    sf::st_drop_geometry() |>
+     dplyr::mutate(n_cases = rowSums(dplyr::across(dplyr::starts_with("DENV"))),
+                  loc = "locality") |>
     dplyr::select(loc, n_cases, hotspots_gi) 
-y_hot <- y %>% dplyr::filter(hotspots_gi == 1)
+y_hot <- y |>dplyr::filter(hotspots_gi == 1)
   
 flexdashboard::gauge(round((nrow(y_hot)/nrow(y))*100, digits = 1),
       min = 0, max = 100, 
@@ -1882,12 +1898,12 @@ flexdashboard::gauge(round((nrow(y_hot)/nrow(y))*100, digits = 1),
 <div class="box f">
 ```{r gauge_casos_tizimin, out.height='90%', out.width = '90%', fig.align = "center"}
 
-y <- hotspots  %>%
-    sf::st_drop_geometry() %>%
-    dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
-                  loc = "locality") %>%
+y <- hotspots  |>
+    sf::st_drop_geometry() |>
+      dplyr::mutate(n_cases = rowSums(dplyr::across(dplyr::starts_with("DENV"))),
+                  loc = "locality") |>
     dplyr::select(loc, n_cases, hotspots_gi) 
-y_hot <- y %>% dplyr::filter(hotspots_gi == 1)
+y_hot <- y |>dplyr::filter(hotspots_gi == 1)
 
 flexdashboard::gauge(round((sum(y_hot$n_cases)/sum(y$n_cases))*100, digits = 1),
       min = 0, max = 100, 
@@ -2004,29 +2020,34 @@ funcumsum <- function(x){
     x
 }
 # step 8.
-
-data_pareto <- hotspots   %>% 
-    sf::st_drop_geometry()  %>% 
-    dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
-                  loc = "locality")  %>% 
-    dplyr::select(loc, n_cases, hotspots_gi)  %>% 
-    dplyr::arrange(loc, desc(hotspots_gi), desc(n_cases))  %>% 
-    dplyr::group_by(loc)  %>% 
-    tidyr::nest()  %>% 
+data_pareto <- hotspots   |>
+    # sf::st_drop_geometry()  |>
+    # dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
+    #              loc = "locality")
+    #dplyr::mutate(n_cases = rowSums(dplyr::across(DENV_2008:DENV_2021)),
+    #              loc = "locality")  |>
+    dplyr::mutate(n_cases = rowSums(dplyr::across(dplyr::starts_with("DENV"))),
+                  loc = "locality") |>
+    
+    dplyr::select(loc, n_cases, hotspots_gi)  |>
+    dplyr::arrange(loc, desc(hotspots_gi), desc(n_cases))  |>
+    dplyr::group_by(loc)  |>
+    tidyr::nest()  |>
     dplyr::mutate(pareto_cases = purrr::map(data,
-                                            funcumsum))  %>% 
-    dplyr::select(-data)  %>% 
+                                            funcumsum))  |>
+    dplyr::select(-data)  |>
     tidyr::unnest(cols = c(pareto_cases))
 
+
 # step 4. visualization of pareto rules 
-plotly::ggplotly(denhotspots::power_law_plot(x = data_pareto))  %>%  plotly::layout(showlegend = FALSE)
+plotly::ggplotly(denhotspots::power_law_plot(x = data_pareto))  |> plotly::layout(showlegend = FALSE)
 
 ```
   </div>
   <div class="box d">
 ```{r gauge_blocks_ticul,fig.align = "center", out.height='100%', out.width = '100%', fig.width= 1.5, fig.height=1}
-y_hot <- hotspots %>% dplyr::filter(hotspots_gi == 1)
-centroid <- rgeomex::blocks_ine20_mx_centroid %>%
+y_hot <- hotspots |>dplyr::filter(hotspots_gi == 1)
+centroid <- rgeomex::blocks_ine20_mx_centroid |>
   sf::st_as_sf(coords = c("x", "y"), crs = 4326)
 b_loc <- centroid[hotspots, ]
 b_hot <- b_loc[y_hot, ]
@@ -2043,12 +2064,12 @@ flexdashboard::gauge(round((nrow(b_hot)/nrow(b_loc))*100, digits = 1),
   <div class="box e">
 ```{r gauge_AGEB_ticul, fig.align = "center", out.height='100%', out.width = '100%'}
 
-y <- hotspots  %>%
-    sf::st_drop_geometry() %>%
-    dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
-                  loc = "locality") %>%
+y <- hotspots  |>
+    sf::st_drop_geometry() |>
+     dplyr::mutate(n_cases = rowSums(dplyr::across(dplyr::starts_with("DENV"))),
+                  loc = "locality") |>
     dplyr::select(loc, n_cases, hotspots_gi) 
-y_hot <- y %>% dplyr::filter(hotspots_gi == 1)
+y_hot <- y |>dplyr::filter(hotspots_gi == 1)
   
 flexdashboard::gauge(round((nrow(y_hot)/nrow(y))*100, digits = 1),
       min = 0, max = 100, 
@@ -2063,12 +2084,12 @@ flexdashboard::gauge(round((nrow(y_hot)/nrow(y))*100, digits = 1),
 <div class="box f">
 ```{r gauge_casos_ticul, out.height='90%', out.width = '90%', fig.align = "center"}
 
-y <- hotspots  %>%
-    sf::st_drop_geometry() %>%
-    dplyr::mutate(n_cases = rowSums(dplyr::select(., dplyr::starts_with("DENV"))),
-                  loc = "locality") %>%
+y <- hotspots  |>
+    sf::st_drop_geometry() |>
+     dplyr::mutate(n_cases = rowSums(dplyr::across(dplyr::starts_with("DENV"))),
+                  loc = "locality") |>
     dplyr::select(loc, n_cases, hotspots_gi) 
-y_hot <- y %>% dplyr::filter(hotspots_gi == 1)
+y_hot <- y |>dplyr::filter(hotspots_gi == 1)
 
 flexdashboard::gauge(round((sum(y_hot$n_cases)/sum(y$n_cases))*100, digits = 1),
       min = 0, max = 100, 
